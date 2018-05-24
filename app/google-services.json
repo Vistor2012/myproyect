@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "390275557799",
+    "firebase_url": "https://milogin-622c3.firebaseio.com",
+    "project_id": "milogin-622c3",
+    "storage_bucket": "milogin-622c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390275557799:android:769c5ef42e51cc46",
+        "android_client_info": {
+          "package_name": "com.example.victor.myproyect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390275557799-2b88omtfmve0544nc3np3b52jfjcrtkc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.victor.myproyect",
+            "certificate_hash": "64d9da59c4fd73fd5c96b8786b3d5f74a068cd2f"
+          }
+        },
+        {
+          "client_id": "390275557799-nie9tjb400qtcbu77e3paa8mk8cs28af.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbzwCZV8iAVRXvx83LWJL9KHZQ5C5aoso"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390275557799-nie9tjb400qtcbu77e3paa8mk8cs28af.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
