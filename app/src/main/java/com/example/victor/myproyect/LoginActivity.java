@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -20,6 +21,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
+    ImageView perfect;
+
     private GoogleApiClient client;
     private int GOOGLE_CODE = 11235;
     @Override
@@ -28,6 +31,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        perfect = (ImageView) findViewById(R.id.perfect);
+        perfect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //finish();
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -67,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
            if(result.isSuccess()){
                Toast.makeText(this, "ok", Toast.LENGTH_LONG).show();
+
            }else{
                Toast.makeText(this, R.string.error_login, Toast.LENGTH_LONG).show();
            }
