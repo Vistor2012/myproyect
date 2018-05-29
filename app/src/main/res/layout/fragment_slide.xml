@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
-        android:text="slide"
+        android:text="Maps"
         android:textSize="40dp" />
 
 </FrameLayout>

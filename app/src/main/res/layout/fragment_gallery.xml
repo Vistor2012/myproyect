@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/holo_green_light"
         android:gravity="center"
-        android:text="gallery"
+        android:text="Camera"
         android:textSize="40dp" />
 
 </FrameLayout>

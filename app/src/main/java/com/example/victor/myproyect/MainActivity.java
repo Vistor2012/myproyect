@@ -105,14 +105,14 @@ public class MainActivity extends AppCompatActivity
         //create fragment
         FragmentManager fragment = getSupportFragmentManager();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
             // Handle the camera action
             fragment.beginTransaction().replace(R.id.contenedor ,new ImportFragment()).commit();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_camera) {
             fragment.beginTransaction().replace(R.id.contenedor ,new GalleryFragment()).commit();
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_maps) {
             fragment.beginTransaction().replace(R.id.contenedor ,new SlideFragment()).commit();
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_mail) {
             fragment.beginTransaction().replace(R.id.contenedor ,new ToolsFragment()).commit();
         } else if (id == R.id.nav_share) {
             fragment.beginTransaction().replace(R.id.contenedor ,new ToolsFragment()).commit();
