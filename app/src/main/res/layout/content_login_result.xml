@@ -5,57 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
-    tools:layout_editor_absoluteY="81dp"
-    tools:showIn="@layout/app_bar_main"
-    android:background="@drawable/fondo">
+    tools:context=".LoginResult"
+    tools:showIn="@layout/activity_login_result">
 
+    <ImageView
+        android:id="@+id/portada"
+        android:layout_width="252dp"
+        android:layout_height="195dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher" />
 
-    <Button
-        android:id="@+id/registro"
-        android:layout_width="150dp"
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:text="REGISTRAR P."
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/portada" />
 
-    <Button
-        android:id="@+id/compras"
-        android:layout_width="150dp"
+    <TextView
+        android:id="@+id/nombre"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
-        android:text="COMPRAR P."
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registro" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
-        android:id="@+id/alquileres"
-        android:layout_width="150dp"
+        android:id="@+id/entrar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
-        android:text="ALQUILAR P."
+        android:layout_marginTop="8dp"
+        android:text="ENTRAR"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/compras" />
-
-    <Button
-        android:id="@+id/anticreticos"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
-        android:text="ANTICRETICO"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alquileres" />
+        app:layout_constraintTop_toBottomOf="@+id/nombre" />
 </android.support.constraint.ConstraintLayout>

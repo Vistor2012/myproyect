@@ -1,5 +1,6 @@
 package com.example.victor.myproyect;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,29 +16,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView welcome, text1;
-    private Typeface script;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //types font
-        welcome = (TextView) findViewById(R.id.welcome);
-        text1 = (TextView) findViewById(R.id.text1);
-
-        String fuente = "fuentes/codec.ttf";
-        this.script = Typeface.createFromAsset(getAssets(),fuente);
-        welcome.setTypeface(script);
-        text1.setTypeface(script);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +38,6 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-        
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,11 +48,24 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //create fragments
-        FragmentManager fragments = getSupportFragmentManager();
-        fragments.beginTransaction().replace(R.id.contenedor, new ImportFragment()).commit();
+        controlador();
+    }
+
+
+
+    private void controlador() {
+        Button btn1 = (Button)this.findViewById(R.id.registro);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent reg = new Intent(getApplicationContext(),RegisterActivity.class);
+                startActivity(reg);
+            }
+        });
 
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -102,22 +105,18 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        //create fragment
-        FragmentManager fragment = getSupportFragmentManager();
-
-        if (id == R.id.nav_home) {
+        if (id == R.id.nav_camera) {
             // Handle the camera action
-            fragment.beginTransaction().replace(R.id.contenedor ,new ImportFragment()).commit();
-        } else if (id == R.id.nav_camera) {
-            fragment.beginTransaction().replace(R.id.contenedor ,new GalleryFragment()).commit();
-        } else if (id == R.id.nav_maps) {
-            fragment.beginTransaction().replace(R.id.contenedor ,new SlideFragment()).commit();
-        } else if (id == R.id.nav_mail) {
-            fragment.beginTransaction().replace(R.id.contenedor ,new ToolsFragment()).commit();
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
         } else if (id == R.id.nav_share) {
-            fragment.beginTransaction().replace(R.id.contenedor ,new ToolsFragment()).commit();
+
         } else if (id == R.id.nav_send) {
-            fragment.beginTransaction().replace(R.id.contenedor ,new ToolsFragment()).commit();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
