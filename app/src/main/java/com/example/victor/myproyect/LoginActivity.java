@@ -52,12 +52,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         loadComponents();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.perfect);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -80,7 +80,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
            if(result.isSuccess()){
                Toast.makeText(this, "ok", Toast.LENGTH_LONG).show();
-
            }else{
                Toast.makeText(this, R.string.error_login, Toast.LENGTH_LONG).show();
            }
