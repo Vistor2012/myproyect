@@ -5,21 +5,22 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/home"
-            android:title="Home" />
+            android:id="@+id/nav_other"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:title="Otro"
+            android:visible="false" />
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/camera"
-            android:title="Camera" />
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Galeria" />
+        <item
+            android:id="@+id/nav_register"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:title="Registrar Propiedad" />
         <item
             android:id="@+id/nav_maps"
-            android:icon="@drawable/mapspunt"
-            android:title="Maps" />
-        <item
-            android:id="@+id/nav_mail"
-            android:icon="@drawable/mail"
-            android:title="Message" />
+            android:icon="@android:drawable/ic_menu_mapmode"
+            android:title="Ver Mapa" />
     </group>
 
     <item android:title="Communicate">
@@ -29,9 +30,9 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_email"
+                android:icon="@android:drawable/sym_action_email"
+                android:title="Contactar" />
         </menu>
     </item>
 

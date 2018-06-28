@@ -10,4 +10,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_login_result">LoginResult</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_contact">ContactActivity</string>
+    <string name="email">email</string>
+    <string name="subject">Subject</string>
+    <string name="message">message</string>
+    <string name="send">Send</string>
+    <string name="title_activity_property">PropertyActivity</string>
+    <string name="title_activity_gallery">GalleryActivity</string>
+    <string name="title_activity_mail">MailActivity</string>
 </resources>
