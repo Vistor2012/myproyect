@@ -48,11 +48,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //controlador();
+        controlador();
     }
 
 
-    /* private void controlador() {
+     private void controlador() {
         Button btn1 = (Button)this.findViewById(R.id.registro);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-    }*/
+    }
 
 
 

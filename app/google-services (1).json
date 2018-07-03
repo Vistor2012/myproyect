@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "431324502799",
+    "firebase_url": "https://root-booking-206914.firebaseio.com",
+    "project_id": "root-booking-206914",
+    "storage_bucket": "root-booking-206914.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431324502799:android:769c5ef42e51cc46",
+        "android_client_info": {
+          "package_name": "com.example.victor.myproyect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431324502799-3b70sp51nmm4k8skstgfrcsknfob8ofm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.victor.myproyect",
+            "certificate_hash": "184a6265718f16c373ead16691df33f093beebda"
+          }
+        },
+        {
+          "client_id": "431324502799-kd6so28ue37d50l04l5v0gjqdnc2fiau.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "431324502799-kd6so28ue37d50l04l5v0gjqdnc2fiau.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6rU5VFKcZOEbPYE7DkciK50q0wZaM-Gs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431324502799-kd6so28ue37d50l04l5v0gjqdnc2fiau.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

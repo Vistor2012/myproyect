@@ -11,4 +11,56 @@
     tools:layout_editor_absoluteY="81dp"
     tools:showIn="@layout/app_bar_main">
 
+
+    <Button
+        android:id="@+id/registro"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="REGISTRAR P."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/compras"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="COMPRAR P."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registro" />
+
+    <Button
+        android:id="@+id/alquileres"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="ALQUILAR P."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/compras" />
+
+    <Button
+        android:id="@+id/anticreticos"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="ANTICRETICO"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alquileres" />
 </android.support.constraint.ConstraintLayout>
