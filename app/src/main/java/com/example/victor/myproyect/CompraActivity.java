@@ -9,27 +9,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-public class PropertyActivity extends AppCompatActivity {
+public class CompraActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_property);
+        setContentView(R.layout.activity_compra);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        controlador1();
-    }
 
-    private void controlador1() {
-        Button btn1 = (Button)this.findViewById(R.id.registro);
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent reg = new Intent(getApplicationContext(),RegisterActivity.class);
-                startActivity(reg);
-            }
-        });
     }
 
 }

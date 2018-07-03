@@ -61,6 +61,10 @@
         <activity
             android:name=".MailActivity"
             android:label="@string/title_activity_mail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CompraActivity"
+            android:label="@string/title_activity_compra"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

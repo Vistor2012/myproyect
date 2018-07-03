@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -34,10 +35,49 @@ public class RegisterActivity extends AppCompatActivity {
     Button botonCargar;
     String path;
 
+    EditText region, zona, direccion, precio, descripcion, habitaciones, servicios;
+
     Spinner categor;
     ImageView imagen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        region = (EditText)findViewById(R.id.region);
+        zona = (EditText)findViewById(R.id.zona);
+        direccion = (EditText)findViewById(R.id.direccion);
+        precio = (EditText)findViewById(R.id.precio);
+        descripcion = (EditText)findViewById(R.id.descripcion);
+        habitaciones = (EditText)findViewById(R.id.habitaciones);
+        servicios = (EditText)findViewById(R.id.servicios);
+
+        botonCargar = (Button) findViewById(R.id.send_info);
+        botonCargar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String region1 = region.getText().toString();
+                String zona1 = zona.getText().toString();
+                String direccion1 = direccion.getText().toString();
+                String precio1 = precio.getText().toString();
+                String descripcion1 = descripcion.getText().toString();
+                String habitaciones1 = habitaciones.getText().toString();
+                String servicios1 = servicios.getText().toString();
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, region1);
+                intent.putExtra(Intent.EXTRA_TEXT, zona1);
+                intent.putExtra(Intent.EXTRA_TEXT, direccion1);
+                intent.putExtra(Intent.EXTRA_TEXT, precio1);
+                intent.putExtra(Intent.EXTRA_TEXT, descripcion1);
+                intent.putExtra(Intent.EXTRA_TEXT, habitaciones1);
+                intent.putExtra(Intent.EXTRA_TEXT, servicios1);
+
+                intent.setType("message/rfc822");
+
+                startActivity(Intent.createChooser(intent, "Select Register app"));
+
+            }
+        });
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

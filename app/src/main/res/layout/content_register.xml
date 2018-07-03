@@ -15,18 +15,18 @@
 
     </android.support.v4.view.ViewPager>
 
-
     <ImageView
         android:id="@+id/foto"
         android:layout_width="153dp"
         android:layout_height="123dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/img_base"
-        tools:layout_editor_absoluteY="24dp"
         tools:ignore="MissingConstraints" />
 
 
@@ -36,7 +36,7 @@
         android:layout_height="36dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,8 +49,9 @@
         android:layout_height="50dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
-        android:hint="precio"
+        android:layout_marginTop="15dp"
+        android:hint="precio USD"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toStartOf="@+id/superficie"
         app:layout_constraintHorizontal_bias="0.391"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,8 +63,9 @@
         android:layout_width="157dp"
         android:layout_height="50dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="30dp"
-        android:hint="superficie"
+        android:layout_marginTop="15dp"
+        android:hint="superficie m2"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cat"
         tools:ignore="MissingConstraints" />
@@ -74,12 +76,24 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="seleccionar imagen"
+        android:layout_marginTop="8dp"
         android:onClick="onclick"
+        android:text="seleccionar imagen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/foto" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:layout_marginTop="8dp"
+        android:hint="Descripcion"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/precio" />
 
     <Button
         android:id="@+id/ubicacion"
@@ -92,6 +106,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Direccion"
+        android:inputType="textCapCharacters"
+        app:layout_constraintBottom_toTopOf="@+id/ubicacion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintVertical_bias="0.2" />
 
 </android.support.constraint.ConstraintLayout>
 
