@@ -39,13 +39,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         loadComponents();
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(Login.this, MainActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -70,9 +69,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             if (result.isSuccess())
             {
                 Intent loginr = new Intent(this, LoginResult.class);
-                Uri photo = result.getSignInAccount().getPhotoUrl();
-                String completeurl = "https//lh3.googleusercontent.com" + photo.getPath();
-                loginr.putExtra("portada", completeurl);
+                //Uri photo = result.getSignInAccount().getPhotoUrl();
+                //String completeurl = "https//lh3.googleusercontent.com" + photo.getPath();
+                //loginr.putExtra("portada", completeurl);
                 loginr.putExtra("email", result.getSignInAccount().getEmail());
                 loginr.putExtra("nombre", result.getSignInAccount().getDisplayName());
                 startActivity(loginr);

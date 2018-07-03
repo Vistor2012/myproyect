@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-    private void controlador() {
+     private void controlador() {
         Button btn1 = (Button)this.findViewById(R.id.registro);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,24 +98,31 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
+        Intent i;
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_other) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+            i = new Intent(MainActivity.this, GalleryActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_register) {
+            i = new Intent(MainActivity.this, PropertyActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_maps) {
+            i = new Intent(MainActivity.this, MapsActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_email) {
+            i = new Intent(MainActivity.this, MailActivity.class);
+            startActivity(i);
+            return true;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
