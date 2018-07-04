@@ -18,8 +18,6 @@ public class MailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         email = (EditText)findViewById(R.id.email);
         subject = (EditText)findViewById(R.id.subject);

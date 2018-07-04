@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/holo_orange_dark"
-    tools:context="com.example.victor.myproyect.ContactActivity">
+    tools:openDrawer="start"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.victor.myproyect.MailActivity">
 
     <EditText
         android:id="@+id/email"

@@ -24,8 +24,6 @@ public class LoginResult extends AppCompatActivity implements OnLoadImage {
         root = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_result);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         city = this.getIntent().getExtras().getString("city1");
         phone1 = this.getIntent().getExtras().getString("phone11");

@@ -47,8 +47,6 @@ public class EditPerfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         validaPermisos();
         setContentView(R.layout.activity_edit_perfil);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         imagen1=(ImageView)findViewById(R.id.foto1);
 

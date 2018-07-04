@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -20,39 +21,39 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(MainActivity.this, MailActivity.class);
+                startActivity(i);
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
         controlador();
+        controlador1();
+    }
+
+    private void controlador1() {
+        Button btn1 = (Button)this.findViewById(R.id.gallery_p);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent reg = new Intent(getApplicationContext(),GalleryActivity.class);
+                startActivity(reg);
+            }
+        });
     }
 
 
-     private void controlador() {
+    private void controlador() {
         Button btn1 = (Button)this.findViewById(R.id.registro);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,35 +99,8 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-
-        Intent i;
-        int id = item.getItemId();
-
-        if (id == R.id.nav_other) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-            i = new Intent(MainActivity.this, GalleryActivity.class);
-            startActivity(i);
-        } else if (id == R.id.nav_register) {
-            i = new Intent(MainActivity.this, PropertyActivity.class);
-            startActivity(i);
-        } else if (id == R.id.nav_maps) {
-            i = new Intent(MainActivity.this, MapsActivity.class);
-            startActivity(i);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_email) {
-            i = new Intent(MainActivity.this, MailActivity.class);
-            startActivity(i);
-            return true;
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }
