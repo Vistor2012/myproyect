@@ -65,7 +65,11 @@
         <activity
             android:name=".CompraActivity"
             android:label="@string/title_activity_compra"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditPerfilActivity"
+            android:label="@string/title_activity_edit_perfil"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

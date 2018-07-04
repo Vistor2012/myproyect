@@ -32,6 +32,17 @@ public class LoginResult extends AppCompatActivity implements OnLoadImage {
         nombre = this.getIntent().getExtras().getString("nombre");
 
         loadComponents();
+        controlador3();
+    }
+    private void controlador3(){
+        Button btn1 = (Button)this.findViewById(R.id.edit_face);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent reg = new Intent(getApplicationContext(), EditPerfilActivity.class);
+                startActivity(reg);
+            }
+        });
     }
 
     private void loadComponents() {

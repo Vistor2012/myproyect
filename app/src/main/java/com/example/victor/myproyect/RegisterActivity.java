@@ -32,43 +32,36 @@ public class RegisterActivity extends AppCompatActivity {
     final int COD_SELECCIONA=10;
     final int COD_FOTO=20;
 
-    Button botonCargar;
+    //Button botonCargar;
+    //Button register_data;
     String path;
 
-    EditText region, zona, direccion, precio, descripcion, habitaciones, servicios;
+    EditText precio, descripcion, superficie, servicios;
 
     Spinner categor;
     ImageView imagen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        region = (EditText)findViewById(R.id.region);
-        zona = (EditText)findViewById(R.id.zona);
-        direccion = (EditText)findViewById(R.id.direccion);
+
         precio = (EditText)findViewById(R.id.precio);
-        descripcion = (EditText)findViewById(R.id.descripcion);
-        habitaciones = (EditText)findViewById(R.id.habitaciones);
+        descripcion = (EditText)findViewById(R.id.description);
+        superficie = (EditText)findViewById(R.id.superficie);
         servicios = (EditText)findViewById(R.id.servicios);
 
-        botonCargar = (Button) findViewById(R.id.send_info);
-        botonCargar.setOnClickListener(new View.OnClickListener() {
+        /*register_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String region1 = region.getText().toString();
-                String zona1 = zona.getText().toString();
-                String direccion1 = direccion.getText().toString();
+
                 String precio1 = precio.getText().toString();
                 String descripcion1 = descripcion.getText().toString();
-                String habitaciones1 = habitaciones.getText().toString();
+                String superficie1 = superficie.getText().toString();
                 String servicios1 = servicios.getText().toString();
 
                 Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, region1);
-                intent.putExtra(Intent.EXTRA_TEXT, zona1);
-                intent.putExtra(Intent.EXTRA_TEXT, direccion1);
                 intent.putExtra(Intent.EXTRA_TEXT, precio1);
                 intent.putExtra(Intent.EXTRA_TEXT, descripcion1);
-                intent.putExtra(Intent.EXTRA_TEXT, habitaciones1);
+                intent.putExtra(Intent.EXTRA_TEXT, superficie1);
                 intent.putExtra(Intent.EXTRA_TEXT, servicios1);
 
                 intent.setType("message/rfc822");
@@ -76,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(intent, "Select Register app"));
 
             }
-        });
+        });*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
