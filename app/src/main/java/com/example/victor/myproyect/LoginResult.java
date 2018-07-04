@@ -17,7 +17,7 @@ import com.example.victor.myproyect.ListDataSource.OnLoadImage;
 import com.example.victor.myproyect.ListDataSource.TaskImg;
 
 public class LoginResult extends AppCompatActivity implements OnLoadImage {
-    private String portada, email, nombre;
+    private String portada, email, nombre,city,phone1,phone2,movil;
     private Context root;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,10 @@ public class LoginResult extends AppCompatActivity implements OnLoadImage {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        city = this.getIntent().getExtras().getString("city1");
+        phone1 = this.getIntent().getExtras().getString("phone11");
+        phone2 = this.getIntent().getExtras().getString("phone22");
+        movil = this.getIntent().getExtras().getString("movil1");
         portada = this.getIntent().getExtras().getString("portada");
         email = this.getIntent().getExtras().getString("email");
         nombre = this.getIntent().getExtras().getString("nombre");
@@ -40,6 +44,8 @@ public class LoginResult extends AppCompatActivity implements OnLoadImage {
             @Override
             public void onClick(View v) {
                 Intent reg = new Intent(getApplicationContext(), EditPerfilActivity.class);
+                reg.putExtra("nombre", nombre);
+                reg.putExtra("email",email);
                 startActivity(reg);
             }
         });

@@ -67,6 +67,7 @@
             android:label="@string/title_activity_compra"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:configChanges="orientation|screenSize"
             android:name=".EditPerfilActivity"
             android:label="@string/title_activity_edit_perfil"
             android:theme="@style/AppTheme.NoActionBar"/>

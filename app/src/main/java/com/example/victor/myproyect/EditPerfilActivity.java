@@ -1,11 +1,14 @@
 package com.example.victor.myproyect;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -14,9 +17,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class EditPerfilActivity extends AppCompatActivity {
     private final String CARPETA_RAIZ1="misImagenesPrueba1/";
@@ -27,19 +36,53 @@ public class EditPerfilActivity extends AppCompatActivity {
 
     String path1;
 
+    private String email_user, last_name;
+    private Context root;
+
     ImageView imagen1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        root = this;
         super.onCreate(savedInstanceState);
+        validaPermisos();
         setContentView(R.layout.activity_edit_perfil);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         imagen1=(ImageView)findViewById(R.id.foto1);
 
+        email_user = this.getIntent().getExtras().getString("email");
+        last_name = this.getIntent().getExtras().getString("nombre");
+        Toast.makeText(root, last_name, Toast.LENGTH_SHORT).show();
+        loadComponents();
+
     }
 
+    private void loadComponents() {
+        TextView nametext = (TextView)this.findViewById(R.id.name_lastname);
+        TextView emailtext = (TextView)this.findViewById(R.id.email_u);
+
+        nametext.setText(last_name);
+        emailtext.setText(email_user);
+    }
+
+    private boolean validaPermisos() {
+
+        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
+            return true;
+        }
+
+        if((checkSelfPermission(CAMERA)== PackageManager.PERMISSION_GRANTED)&&
+                (checkSelfPermission(WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED)){
+            return true;
+        }
+
+        requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+
+
+        return false;
+    }
     public void onclick(View view) {
         cargarImagen1();
     }
@@ -87,7 +130,7 @@ public class EditPerfilActivity extends AppCompatActivity {
         File imagen=new File(path1);
         Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
 
         startActivityForResult(intent,COD_FOTOGRAFIA);

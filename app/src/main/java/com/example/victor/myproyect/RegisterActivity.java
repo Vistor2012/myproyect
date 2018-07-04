@@ -2,10 +2,12 @@ package com.example.victor.myproyect;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -24,6 +26,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import java.io.File;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class RegisterActivity extends AppCompatActivity {
     private final String CARPETA_RAIZ="misImagenesPrueba/";
@@ -73,6 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        validaPermisos();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         categor = (Spinner)findViewById(R.id.cat);
@@ -94,7 +100,22 @@ public class RegisterActivity extends AppCompatActivity {
 
         irMapa();
     }
+    private boolean validaPermisos() {
 
+        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
+            return true;
+        }
+
+        if((checkSelfPermission(CAMERA)== PackageManager.PERMISSION_GRANTED)&&
+                (checkSelfPermission(WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED)){
+            return true;
+        }
+
+        requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+
+
+        return false;
+    }
     private void irMapa() {
         Button btn5 = (Button)this.findViewById(R.id.ubicacion);
         btn5.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +173,7 @@ public class RegisterActivity extends AppCompatActivity {
         path=Environment.getExternalStorageDirectory()+ File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
 
         File imagen=new File(path);
+
         Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 

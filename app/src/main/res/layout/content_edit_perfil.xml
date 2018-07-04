@@ -11,15 +11,15 @@
 
     <ImageView
         android:id="@+id/foto1"
-        android:layout_width="153dp"
-        android:layout_height="123dp"
+        android:layout_width="156dp"
+        android:layout_height="153dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
+        android:contentDescription="@string/todo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/img_base"
-        tools:ignore="MissingConstraints"
-        android:contentDescription="@string/todo"/>
+        tools:ignore="MissingConstraints" />
 
 
     <EditText
@@ -30,25 +30,24 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="@string/telefono_fijo"
+        android:hint="Telefono_fijo"
         android:inputType="phone"
         app:layout_constraintEnd_toStartOf="@+id/phone2"
-        app:layout_constraintHorizontal_bias="0.378"
+        app:layout_constraintHorizontal_bias="0.307"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastname" />
+        app:layout_constraintTop_toBottomOf="@+id/email_u" />
 
     <EditText
         android:id="@+id/phone2"
         android:layout_width="155dp"
-        android:layout_height="45dp"
+        android:layout_height="46dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="@string/telefono"
+        android:hint="Telefono_Alterno"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastname" />
+        app:layout_constraintTop_toBottomOf="@+id/email_u" />
 
     <EditText
         android:id="@+id/movil"
@@ -58,51 +57,36 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="@string/movil"
+        android:hint="Movil"
         android:inputType="phone"
         app:layout_constraintEnd_toStartOf="@+id/city"
         app:layout_constraintHorizontal_bias="0.411"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phone1" />
 
-    <EditText
-        android:id="@+id/email_p"
-        android:layout_width="340dp"
-        android:layout_height="45dp"
+    <TextView
+        android:id="@+id/email_u"
+        android:layout_width="349dp"
+        android:layout_height="37dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:hint="@string/correo_gmail_com"
-        android:inputType="textEmailAddress"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city" />
+        app:layout_constraintTop_toBottomOf="@+id/name_lastname" />
 
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="343dp"
-        android:layout_height="45dp"
+    <TextView
+        android:id="@+id/name_lastname"
+        android:layout_width="349dp"
+        android:layout_height="41dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:hint="@string/nombre"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/foto1" />
-
-    <EditText
-        android:id="@+id/lastname"
-        android:layout_width="340dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        android:hint="@string/apellido"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <EditText
         android:id="@+id/city"
@@ -131,17 +115,16 @@
 
     <Button
         android:id="@+id/select_im_perf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="20dp"
+        android:layout_width="144dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="68dp"
         android:onClick="onclick"
         android:text="@string/seleccionar_imagen"
-        app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/foto"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toEndOf="@+id/foto1"
         app:layout_constraintTop_toTopOf="parent" />
 
 
