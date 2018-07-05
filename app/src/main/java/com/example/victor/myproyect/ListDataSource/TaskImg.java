@@ -26,9 +26,7 @@ public class TaskImg extends AsyncTask<String, String, Bitmap> {
             Bitmap imageBitmap = BitmapFactory.decodeStream(stream);
             return imageBitmap;
             //img.setImageBitmap(imageBitmap);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        }  catch (IOException e) {
             e.printStackTrace();
         }
         return null;

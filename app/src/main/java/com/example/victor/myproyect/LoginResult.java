@@ -36,6 +36,7 @@ public class LoginResult extends AppCompatActivity implements OnLoadImage {
         loadComponents();
         controlador3();
     }
+
     private void controlador3(){
         Button btn1 = (Button)this.findViewById(R.id.edit_face);
         btn1.setOnClickListener(new View.OnClickListener() {

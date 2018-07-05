@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -63,10 +65,14 @@
             android:label="@string/title_activity_mail"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:configChanges="orientation|screenSize"
             android:name=".EditPerfilActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_edit_perfil"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DetaillsActivity"
+            android:label="@string/title_activity_detaills"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

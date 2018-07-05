@@ -18,16 +18,29 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.victor.myproyect.DATA.DataApp;
+import com.example.victor.myproyect.DATA.UserData;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.FileNotFoundException;
+
+import cz.msebera.android.httpclient.Header;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class EditPerfilActivity extends AppCompatActivity {
+public class EditPerfilActivity extends AppCompatActivity implements  View.OnClickListener {
     private final String CARPETA_RAIZ1="misImagenesPrueba1/";
     private final String RUTA_IMAGENES=CARPETA_RAIZ1+"miPerfil";
 
@@ -40,7 +53,9 @@ public class EditPerfilActivity extends AppCompatActivity {
     private Context root;
 
     ImageView imagen1;
-
+    Button sel_img , save;
+    EditText city,phone1,phone2,movil;
+    TextView emailtext,nametext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         root = this;
@@ -52,14 +67,23 @@ public class EditPerfilActivity extends AppCompatActivity {
 
         email_user = this.getIntent().getExtras().getString("email");
         last_name = this.getIntent().getExtras().getString("nombre");
-        Toast.makeText(root, last_name, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(root, last_name, Toast.LENGTH_SHORT).show();
+
         loadComponents();
 
     }
 
     private void loadComponents() {
-        TextView nametext = (TextView)this.findViewById(R.id.name_lastname);
-        TextView emailtext = (TextView)this.findViewById(R.id.email_u);
+        nametext = (TextView)this.findViewById(R.id.name_lastname);
+        emailtext = (TextView)this.findViewById(R.id.email_u);
+        city = this.findViewById(R.id.city);
+        phone1 = this.findViewById(R.id.phone1);
+        phone2 = this.findViewById(R.id.phone2);
+        movil = this.findViewById(R.id.movil);
+        sel_img = this.findViewById(R.id.select_im_perf);
+        save = this.findViewById(R.id.save);
+        save.setOnClickListener(this);
+        sel_img.setOnClickListener(this);
 
         nametext.setText(last_name);
         emailtext.setText(email_user);
@@ -81,9 +105,6 @@ public class EditPerfilActivity extends AppCompatActivity {
 
         return false;
     }
-    public void onclick(View view) {
-        cargarImagen1();
-    }
 
     private void cargarImagen1() {
 
@@ -93,7 +114,7 @@ public class EditPerfilActivity extends AppCompatActivity {
         alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int j) {
-                if (opciones[j].equals("Tomar Fotografia")){
+                if (opciones[j].equals("Tomar Foto")){
                     tomarImagenes();
                 }else{
                     if (opciones[j].equals("Cargar Imagen")){
@@ -157,6 +178,62 @@ public class EditPerfilActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.select_im_perf : cargarImagen1();break;
+            case R.id.save :
+                try {
+                    guardarInfoUser();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                Toast.makeText(this, "no se selecciono nada", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void guardarInfoUser() throws FileNotFoundException {
+        Toast.makeText(this, "Guardando", Toast.LENGTH_SHORT).show();
+        AsyncHttpClient client = new AsyncHttpClient();
+        File file = new File(path1);
+        RequestParams params = new RequestParams();
+        params.put("img", file);
+
+        params.put("name",nametext.getText());
+        params.put("email",emailtext.getText());
+        params.put("ciudad", city.getText());
+        params.put("phone",phone1.getText());
+        params.put("phone2",phone2.getText());
+        params.put("movil", movil.getText());
+
+        params.put("ciudad",city.getText());
+
+        //Aqui hay que cambiar la ip
+        client.post(DataApp.HOST+"api/v1.0/agenteVentas", params, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    String msn = response.getString("msn");
+                    String id = response.getString("id");
+
+                    UserData.ID = id;
+                    if (msn != null) {
+                        Toast.makeText(root, msn, Toast.LENGTH_SHORT).show();
+                        Intent main = new Intent(root, MainActivity.class);
+                        root.startActivity(main);
+                    } else {
+                        Toast.makeText(root, "ERROR AL enviar los datos", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 
 }

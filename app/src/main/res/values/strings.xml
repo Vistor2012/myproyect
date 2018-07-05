@@ -45,4 +45,8 @@
     <string name="ingresar">Ingresar</string>
     <string name="editar_perfil">Editar Perfil</string>
     <string name="todo">TODO</string>
+    <string name="title_activity_detaills">DetaillsActivity</string>
+    <string name="chato_briane" />
+    <string name="_0" />
+    <string name="title_activity_busqueda_mapa">BusquedaMapaActivity</string>
 </resources>
