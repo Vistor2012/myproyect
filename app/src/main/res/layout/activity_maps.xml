@@ -13,12 +13,20 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/agregar"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/holo_blue_dark"
+            android:text="@string/agregar" />
+
+        <Button
             android:id="@+id/cancel"
             android:layout_width="194dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/holo_blue_dark"
-            android:text="CANCELAR" />
+            android:text="@string/cancelar" />
 
         <Button
             android:id="@+id/registro"
@@ -26,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/holo_blue_dark"
-            android:text="REGISTRAR" />
+            android:text="@string/registrar" />
 
     </LinearLayout>
 

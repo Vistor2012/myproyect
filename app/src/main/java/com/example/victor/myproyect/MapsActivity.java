@@ -1,32 +1,45 @@
 package com.example.victor.myproyect;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.SharedPreferences;
+
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, GoogleMap.OnMapClickListener{
 
     private GoogleMap mMap;
     private GoogleMap googleMap;
+
+    private UiSettings uiSettings;
+    private ArrayList<LatLng> points;
+    private boolean isInadd = false;
+    private ArrayList<Marker> listMarkers;
+    private Button enviar;
+    private Button agregar;
+    private Button remover;
 
 
 
@@ -38,24 +51,138 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        listMarkers = new ArrayList<Marker>();
+        loadData();
+
+        enviar = this.findViewById(R.id.registro);
+        enviar.setOnClickListener(this);
+        agregar = this.findViewById(R.id.agregar);
+        agregar.setOnClickListener(this);
+        remover = this.findViewById(R.id.cancel);
+        remover.setOnClickListener(this);
+    }
+
+    private void loadData() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        //Falta URL del Servicio:----------------------
+        client.get("", null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // If the response is JSONObject instead of expected JSONArray
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                // Pull out the first event on the public timeline
+                JSONArray aux = timeline;
+                ArrayList<LatLng> list_coor = new ArrayList<LatLng>();
+                for(int i=0;i < aux.length();i++){
+                    try {
+                        JSONObject obj = aux.getJSONObject(i);
+                        double lat = Double.parseDouble(obj.get("lat").toString());
+                        double lng = Double.parseDouble(obj.get("lng").toString());
+                        list_coor.add(new LatLng(lat,lng));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                for (int i=0;i < list_coor.size();i++){
+                    setMarker(list_coor.get(i));
+                }
+
+            }
+        });
+    }
+    private void setMarker(LatLng latLng){
+        Marker m = mMap.addMarker(new MarkerOptions().position(latLng).title(":D"));
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng position = new LatLng(-19.5836100, -65.7530600);
-        googleMap.addMarker(new MarkerOptions()
-                .position(position)
-                .title("CIUDAD DE POTOSI")
-                .draggable(true));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position,17));
+        uiSettings = mMap.getUiSettings();
+        uiSettings.setZoomControlsEnabled(true);
+        uiSettings.setScrollGesturesEnabled(true);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        LatLng Potosi = new LatLng(-19.5788458, -65.7586330);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Potosi,15));
+
+        mMap.setOnMapClickListener(this);
+        points = new ArrayList<>();
     }
 
-   
 
+    @Override
+    public void onClick(View v) {
 
+        switch (v.getId()){
+            case R.id.agregar:
+                if(isInadd = true){
+                    isInadd = false;
+                }else{
+                    isInadd = true;
+                }
+                Toast.makeText(this,"Ya Puedes Agregar Un Marcador",Toast.LENGTH_SHORT).show();
+                msjtxt();
+                break;
+            case R.id.cancel:
+                if(listMarkers.size()>0) {
+                    Marker aux = listMarkers.get(listMarkers.size() - 1);
+                    aux.remove();
+                    listMarkers.remove(listMarkers.size() - 1);
+                }
+                Toast.makeText(this,"Deshaciendo Marcador",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.registro:
+                RequestParams params = new RequestParams();
+                String send="";
+                for(int i=0;i < listMarkers.size();i++ ){
+                    LatLng coor = listMarkers.get(i).getPosition();
+                    send +=""+coor.latitude+","+coor.longitude+"]";
+                }
+                params.put("coor",send);
+                AsyncHttpClient client = new AsyncHttpClient();
+                //Falta URL del Servicio:----------------------
+                client.post("", params, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        msjToasSuccess();
+                    }
 
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        msjToasFail();
+                    }
+                });
+                Toast.makeText(this,"Enviar",Toast.LENGTH_SHORT).show();
+        }
 
+    }
 
+    private void msjToasFail() {
+        Toast.makeText(this,"Error al insertar", Toast.LENGTH_LONG).show();
+    }
 
+    private void msjToasSuccess() {
+        Toast.makeText(this,"Felicidades", Toast.LENGTH_LONG).show();
+    }
+
+    private void msjtxt() {
+        if(isInadd = true){
+            Toast.makeText(this,"Agregando Marcador",Toast.LENGTH_LONG).show();
+        }else{
+
+        }
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+        if(isInadd){
+            Marker m = mMap.addMarker(new MarkerOptions().position(latLng).title(":D"));
+            listMarkers.add(m);
+            Toast.makeText(this,latLng.toString(),Toast.LENGTH_SHORT).show();
+        }
+    }
 }
