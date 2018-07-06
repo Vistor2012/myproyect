@@ -1,5 +1,6 @@
 package com.example.victor.myproyect;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,8 +25,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.example.victor.myproyect.DATA.DataApp;
+import com.example.victor.myproyect.DATA.UserData;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Console;
 import java.io.File;
+import java.io.FileNotFoundException;
+
+import cz.msebera.android.httpclient.Header;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -38,8 +53,9 @@ public class RegisterActivity extends AppCompatActivity {
     final int COD_FOTO=20;
 
     //Button botonCargar;
-    //Button register_data;
+    Button register_data;
     String path;
+    Context root;
 
     EditText precio, descripcion, superficie, servicios;
 
@@ -47,23 +63,67 @@ public class RegisterActivity extends AppCompatActivity {
     ImageView imagen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
 
-
+        root = this;
         precio = (EditText)findViewById(R.id.precio);
         descripcion = (EditText)findViewById(R.id.description);
         superficie = (EditText)findViewById(R.id.superficie);
         servicios = (EditText)findViewById(R.id.servicios);
+        register_data = this.findViewById(R.id.register_data);
 
-        /*register_data.setOnClickListener(new View.OnClickListener() {
+
+        register_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String precio1 = precio.getText().toString();
+                /*String precio1 = precio.getText().toString();
                 String descripcion1 = descripcion.getText().toString();
                 String superficie1 = superficie.getText().toString();
-                String servicios1 = servicios.getText().toString();
+                String servicios1 = servicios.getText().toString();*/
 
-                Intent intent = new Intent(Intent.ACTION_SEND);
+                //Aqui estoy editando lo que ya estabas hacinedo
+                //ademas hago la peticion para insertar en este caso solo los cuatro datos
+                AsyncHttpClient client = new AsyncHttpClient();
+                RequestParams params = new RequestParams();
+                File file = new File(path);
+
+                try {
+                    params.put("img", file);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                params.put("precioIso", precio.getText());
+                params.put("descripcion",descripcion.getText());
+                params.put("supterreno",superficie.getText());
+                params.put("servicios",servicios.getText());
+
+
+
+                client.post(DataApp.HOST_INMUEBLE, params, new JsonHttpResponseHandler(){
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        try {
+                            String msn = response.getString("msn");
+                            String id = response.getString("id");
+                            UserData.ID = id;
+                            if (msn != null) {
+
+                                Intent regPos = new Intent(root, RegistrarPosicionCasa.class);
+                                regPos.putExtra("id",id);
+                                root.startActivity(regPos);
+                            } else {
+                                Toast.makeText(root, "ERROR AL enviar los datos", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+
+                /*Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.putExtra(Intent.EXTRA_TEXT, precio1);
                 intent.putExtra(Intent.EXTRA_TEXT, descripcion1);
                 intent.putExtra(Intent.EXTRA_TEXT, superficie1);
@@ -71,13 +131,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                 intent.setType("message/rfc822");
 
-                startActivity(Intent.createChooser(intent, "Select Register app"));
+                startActivity(Intent.createChooser(intent, "Select Register app"));*/
 
             }
-        });*/
+        });
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+
         validaPermisos();
         categor = (Spinner)findViewById(R.id.cat);
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.Cat,android.R.layout.simple_spinner_item);
@@ -204,4 +263,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
+
 }
+

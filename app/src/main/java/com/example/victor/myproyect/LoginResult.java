@@ -57,13 +57,14 @@ public class LoginResult extends AppCompatActivity implements OnLoadImage {
         Button btn = (Button)this.findViewById(R.id.entrar);
         nametext.setText(nombre);
         emailtext.setText(email);
-        TaskImg loadimg = new TaskImg();
+        /*TaskImg loadimg = new TaskImg();
         loadimg.execute(portada);
-        loadimg.setLoadImage(img,this);
+        loadimg.setLoadImage(img,this);*/
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent main = new Intent(root, MainActivity.class);
+                main.putExtra("email",email);
                 root.startActivity(main);
             }
         });

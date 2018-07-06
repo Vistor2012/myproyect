@@ -114,12 +114,12 @@
         android:layout_marginTop="8dp"
         android:text="@string/ubicacion"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Register_Data"
+        app:layout_constraintEnd_toStartOf="@+id/register_data"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/servicios" />
 
     <Button
-        android:id="@+id/Register_Data"
+        android:id="@+id/register_data"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"

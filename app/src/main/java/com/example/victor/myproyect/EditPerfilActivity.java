@@ -212,7 +212,7 @@ public class EditPerfilActivity extends AppCompatActivity implements  View.OnCli
         params.put("ciudad",city.getText());
 
         //Aqui hay que cambiar la ip
-        client.post(DataApp.HOST+"api/v1.0/agenteVentas", params, new JsonHttpResponseHandler(){
+        client.post(DataApp.HOST+"agenteVentas", params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
