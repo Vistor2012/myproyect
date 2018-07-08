@@ -30,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     final int COD_SELECCIONA=10;
     final int COD_FOTO=20;
+    private final int PICK_IMAGE_MULTIPLE =1;
 
     Button botonCargar;
     String path;
@@ -92,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (opciones[i].equals("Cargar Imagen")){
                         Intent intent=new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         intent.setType("image/");
+                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                         startActivityForResult(intent.createChooser(intent,"Seleccione la Aplicación"),COD_SELECCIONA);
                     }else{
                         dialogInterface.dismiss();
