@@ -26,8 +26,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -69,6 +67,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             if (result.isSuccess())
             {
                 Intent loginr = new Intent(this, LoginResult.class);
+                //Intent loginr = new Intent(this, EditPerfilActivity.class);
                 //Uri photo = result.getSignInAccount().getPhotoUrl();
                 //String completeurl = "https//lh3.googleusercontent.com" + photo.getPath();
                 //loginr.putExtra("portada", completeurl);

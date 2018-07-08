@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_bright"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:background="@android:color/holo_orange_dark"
-    tools:context="com.example.victor.myproyect.ContactActivity">
+    tools:context="com.example.victor.myproyect.MailActivity"
+    tools:openDrawer="start">
 
     <EditText
         android:id="@+id/email"
@@ -61,6 +63,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
         android:text="Send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

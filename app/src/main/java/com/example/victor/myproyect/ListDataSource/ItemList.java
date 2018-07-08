@@ -1,30 +1,36 @@
 package com.example.victor.myproyect.ListDataSource;
 
 public class ItemList {
-    private String poster;
-    private String title;
-    private String year;
-    private String type;
+    private String image_casa;
+    private String detalles_casa;
+    private String servicios_p;
+    private String precio_p;
+    private String superficie_p;
+    private String direccion_p;
     private String idimdb;
-    public ItemList (String poster, String title, String year, String type, String idimdb) {
-        this.poster = poster;
-        this.title = title;
-        this.year = year;
-        this.type = type;
+    public ItemList (String image_casa, String detalles_casa, String servicios_p, String precio_p, String superficie_p, String direccion_p, String idimdb) {
+        this.image_casa = image_casa;
+        this.detalles_casa = detalles_casa;
+        this.servicios_p = servicios_p;
+        this.precio_p = precio_p;
+        this.superficie_p = superficie_p;
+        this.direccion_p = direccion_p;
         this.idimdb = idimdb;
     }
-    public String getPoster(){
-        return this.poster;
+    public String getImage_casa(){
+        return this.image_casa;
     }
-    public String getTitle() {
-        return this.title;
+    public String getDetalles_casa() { return this.detalles_casa; }
+    public String getServicios_p() {
+        return this.servicios_p;
     }
-    public String getYear() {
-        return this.year;
+    public String getPrecio_p() {
+        return this.precio_p;
     }
-    public String getType () {
-        return this.type;
+    public String getSuperficie_p() {
+        return this.superficie_p;
     }
+    public String getDireccion_p() { return this.direccion_p; }
     public String getIdimdb () {
         return this.idimdb;
     }
