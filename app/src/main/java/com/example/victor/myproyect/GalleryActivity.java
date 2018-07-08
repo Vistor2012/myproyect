@@ -49,7 +49,7 @@ public class GalleryActivity extends AppCompatActivity {
     private void loadInitialRestData() {
         AsyncHttpClient client = new AsyncHttpClient();
         //aqui donde tiene q cargar la informacion
-        String url = "http://192.168.1.2:7777/api/v1.0/" + "inmuebles";
+        String url = "http://192.168.1.8:7777/api/v1.0/" + "inmuebles";
         client.get(url, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

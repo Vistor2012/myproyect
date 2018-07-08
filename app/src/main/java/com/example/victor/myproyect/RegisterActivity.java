@@ -250,7 +250,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         });
 
         //Aqui hay que cambiar la ip
-        String url = "http://192.168.1.2:7777/api/v1.0/" + "inmuebles";
+        String url = "http://192.168.1.8:7777/api/v1.0/" + "inmuebles";
 
         client.post(url, params, new JsonHttpResponseHandler(){
             @Override
