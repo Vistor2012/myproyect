@@ -25,7 +25,7 @@ import cz.msebera.android.httpclient.Header;
 public class GalleryActivity extends AppCompatActivity {
 
     private ListView LIST;
-    private ArrayList<ItemList> LISTINFO;
+    private ArrayList<ItemList>LISTINFO;
     private Context root;
     private CustomAdapter ADAPTER;
 
@@ -88,5 +88,4 @@ public class GalleryActivity extends AppCompatActivity {
         ADAPTER = new CustomAdapter(root, LISTINFO);
         LIST.setAdapter(ADAPTER);
     }
-
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
@@ -71,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         loadcomponents();
         validaPermisos();
-        irMapa();
+
 
     }
 
@@ -103,16 +104,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         return false;
     }
-    private void irMapa() {
-        Button btn5 = (Button)this.findViewById(R.id.ubicacion);
-        btn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent ubi = new Intent(getApplicationContext(),MapsActivity.class);
-                startActivity(ubi);
-            }
-        });
-    }
+
 
     public void onclick(View view) {
         cargarImagen();
@@ -168,6 +160,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         startActivityForResult(intent,COD_FOTO);
     }
+    public static String getRealPathFromURI(Context context, Uri contentURI) {
+        String result = null;
+        Cursor cursor = context.getContentResolver().query(contentURI,
+                null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int idx = cursor
+                    .getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -177,6 +182,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 case COD_SELECCIONA:
                     Uri Mipath=data.getData();
                     imagen.setImageURI(Mipath);
+                    path = getRealPathFromURI(this,Mipath);
                     break;
                 case COD_FOTO:
                     MediaScannerConnection.scanFile(this, new String[]{path}, null, new MediaScannerConnection.OnScanCompletedListener() {
@@ -245,7 +251,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         //Aqui hay que cambiar la ip
         String url = "http://192.168.1.2:7777/api/v1.0/" + "inmuebles";
-        //client.setTimeout(15*1000);
+
         client.post(url, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -256,8 +262,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     UserData.IDCasa = id;
                     if (msn != null) {
                         Toast.makeText(root, msn, Toast.LENGTH_SHORT).show();
-                        Intent main = new Intent(root, MainActivity.class);
-                        root.startActivity(main);
+                        Intent registraPosicion = new Intent(root, RegistrarPosicionCasa.class);
+                        registraPosicion.putExtra("id",id);
+                        root.startActivity(registraPosicion);
                     } else {
                         Toast.makeText(root, "ERROR AL enviar los datos", Toast.LENGTH_LONG).show();
                     }
