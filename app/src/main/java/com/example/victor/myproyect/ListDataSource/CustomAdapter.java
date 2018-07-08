@@ -53,13 +53,20 @@ public class CustomAdapter extends BaseAdapter{
             convertView = inflate.inflate(R.layout.content_detaills , null);
         }
         TextView detalles = (TextView)convertView.findViewById(R.id.details_house);
-        TextView otro = (TextView)convertView.findViewById(R.id.other);
+        TextView servicios = (TextView)convertView.findViewById(R.id.servicios_p);
+        TextView precio = (TextView)convertView.findViewById(R.id.precio_p);
+        TextView superficie = (TextView)convertView.findViewById(R.id.superficie_p);
+        TextView direccion = (TextView)convertView.findViewById(R.id.direccion_p);
 
         detalles.setText(this.LIST.get(position).getDetalles_casa());
-        otro.setText(this.LIST.get(position).getOtro());
+        servicios.setText(this.LIST.get(position).getServicios_p());
+        precio.setText(this.LIST.get(position).getPrecio_p());
+        superficie.setText(this.LIST.get(position).getSuperficie_p());
+        direccion.setText(this.LIST.get(position).getDireccion_p());
 
         ImageView img = (ImageView)convertView.findViewById(R.id.image_house);
-        //faltahilo de imagen
+
+        //sin hilo la imagen
         try {
             URL url = new URL(this.LIST.get(position).getImage_casa());
             InputStream stream = url.openConnection().getInputStream();
@@ -71,6 +78,13 @@ public class CustomAdapter extends BaseAdapter{
             e.printStackTrace();
         }
 
+        //revisar con Hilo la imagen
+
+        /*ImageView img = (ImageView)convertView.findViewById(R.id.image_house);
+        TaskImg hilo = new TaskImg();
+        hilo.setLoadImage(img, this);
+        hilo.execute(this.LIST.get(position).getImage_casa());*/
+        //
         return convertView;
     }
 }

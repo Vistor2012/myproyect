@@ -44,119 +44,49 @@ import cz.msebera.android.httpclient.Header;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.example.victor.myproyect.DATA.DataApp.HOST_INMUEBLE;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     private final String CARPETA_RAIZ="misImagenesPrueba/";
     private final String RUTA_IMAGEN=CARPETA_RAIZ+"misFotos";
 
     final int COD_SELECCIONA=10;
     final int COD_FOTO=20;
 
-    //Button botonCargar;
-    Button register_data;
+    Button register_data, select_image;
     String path;
     Context root;
 
-    EditText precio, descripcion, superficie, servicios;
+    EditText precio, descripcion, superficie, servicios, direccion;
 
     Spinner categor;
     ImageView imagen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        root = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        root = this;
+        imagen=(ImageView)findViewById(R.id.foto);
+
+        loadcomponents();
+        validaPermisos();
+        irMapa();
+
+    }
+
+    private void loadcomponents() {
         precio = (EditText)findViewById(R.id.precio);
         descripcion = (EditText)findViewById(R.id.description);
         superficie = (EditText)findViewById(R.id.superficie);
         servicios = (EditText)findViewById(R.id.servicios);
+        direccion =  (EditText)findViewById(R.id.direccion);
+        select_image = this.findViewById(R.id.select_Image);
         register_data = this.findViewById(R.id.register_data);
-
-
-        register_data.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                /*String precio1 = precio.getText().toString();
-                String descripcion1 = descripcion.getText().toString();
-                String superficie1 = superficie.getText().toString();
-                String servicios1 = servicios.getText().toString();*/
-
-                //Aqui estoy editando lo que ya estabas hacinedo
-                //ademas hago la peticion para insertar en este caso solo los cuatro datos
-                AsyncHttpClient client = new AsyncHttpClient();
-                RequestParams params = new RequestParams();
-                File file = new File(path);
-
-                try {
-                    params.put("img", file);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                params.put("precioIso", precio.getText());
-                params.put("descripcion",descripcion.getText());
-                params.put("supterreno",superficie.getText());
-                params.put("servicios",servicios.getText());
-
-
-
-                client.post(DataApp.HOST_INMUEBLE, params, new JsonHttpResponseHandler(){
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        try {
-                            String msn = response.getString("msn");
-                            String id = response.getString("id");
-                            UserData.ID = id;
-                            if (msn != null) {
-
-                                Intent regPos = new Intent(root, RegistrarPosicionCasa.class);
-                                regPos.putExtra("id",id);
-                                root.startActivity(regPos);
-                            } else {
-                                Toast.makeText(root, "ERROR AL enviar los datos", Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });
-
-                /*Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, precio1);
-                intent.putExtra(Intent.EXTRA_TEXT, descripcion1);
-                intent.putExtra(Intent.EXTRA_TEXT, superficie1);
-                intent.putExtra(Intent.EXTRA_TEXT, servicios1);
-
-                intent.setType("message/rfc822");
-
-                startActivity(Intent.createChooser(intent, "Select Register app"));*/
-
-            }
-        });
-
-
-        validaPermisos();
-        categor = (Spinner)findViewById(R.id.cat);
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.Cat,android.R.layout.simple_spinner_item);
-        categor.setAdapter(adapter);
-        categor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        imagen=(ImageView)findViewById(R.id.foto);
-
-        irMapa();
+        register_data.setOnClickListener(this);
+        select_image.setOnClickListener(this);
     }
+
     private boolean validaPermisos() {
 
         if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
@@ -184,10 +114,10 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-
     public void onclick(View view) {
         cargarImagen();
     }
+
 
     private void cargarImagen() {
 
@@ -263,6 +193,88 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(getApplicationContext(),"entra a on click",Toast.LENGTH_SHORT).show();
+
+        switch (v.getId()){
+            case R.id.select_Image : cargarImagen();break;
+            case R.id.register_data :
+                try {
+                    guardarInfoUser();
+                } catch (FileNotFoundException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            default:
+                Toast.makeText(this, "no se selecciono nada", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void guardarInfoUser() throws FileNotFoundException{
+        Toast.makeText(this, "Guardando", Toast.LENGTH_SHORT).show();
+        AsyncHttpClient client = new AsyncHttpClient();
+        File file = new File(path);
+        RequestParams params = new RequestParams();
+        //params.put("img", file);
+
+        params.put("precio", precio.getText());
+        params.put("descripcion",descripcion.getText());
+        params.put("superficie",superficie.getText());
+        params.put("servicios",servicios.getText());
+        params.put("direccion", direccion.getText());
+        Toast.makeText(getApplicationContext(),"entra aguardar info",Toast.LENGTH_SHORT).show();
+
+        //hay q revisar todo del spiner
+        categor = (Spinner)findViewById(R.id.cat);
+        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.Cat,android.R.layout.simple_spinner_item);
+        categor.setAdapter(adapter);
+        categor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Aqui hay que cambiar la ip
+        String url = "http://192.168.1.2:7777/api/v1.0/" + "inmuebles";
+        //client.setTimeout(15*1000);
+        client.post(url, params, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    String msn = response.getString("msn");
+                    String id = response.getString("id");
+
+                    UserData.IDCasa = id;
+                    if (msn != null) {
+                        Toast.makeText(root, msn, Toast.LENGTH_SHORT).show();
+                        Intent main = new Intent(root, MainActivity.class);
+                        root.startActivity(main);
+                    } else {
+                        Toast.makeText(root, "ERROR AL enviar los datos", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Toast.makeText(RegisterActivity.this, throwable.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
 }
 

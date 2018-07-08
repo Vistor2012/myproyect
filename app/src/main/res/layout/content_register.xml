@@ -88,6 +88,7 @@
         android:layout_marginTop="8dp"
         android:hint="@string/descripcion"
         android:inputType="text"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,14 +97,28 @@
     <EditText
         android:id="@+id/servicios"
         android:layout_width="match_parent"
-        android:layout_height="78dp"
+        android:layout_height="53dp"
         android:layout_marginTop="8dp"
         android:hint="@string/servicios"
         android:inputType="text"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <EditText
+        android:id="@+id/direccion"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:inputType="text"
+        android:hint="Dirección"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/servicios" />
 
 
     <Button
@@ -119,7 +134,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/register_data"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/servicios" />
+        app:layout_constraintTop_toBottomOf="@+id/direccion" />
 
     <Button
         android:id="@+id/register_data"
@@ -134,7 +149,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ubicacion"
-        app:layout_constraintTop_toBottomOf="@+id/servicios" />
+        app:layout_constraintTop_toBottomOf="@+id/direccion" />
 
 </android.support.constraint.ConstraintLayout>
 

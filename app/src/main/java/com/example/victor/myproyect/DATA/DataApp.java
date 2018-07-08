@@ -6,9 +6,10 @@ import java.util.ArrayList;
 
 public class DataApp {
 
-    static public ArrayList<ItemMenuStructure> LISDATA;
-    static public String HOST = "http://192.168.100.7:7777/api/v1.0/";
+    static public ArrayList<ItemMenuStructure> LISTINFO;
+
+    static public String HOST = "http://192.168.1.2:7777/api/v1.0/";
     static public String HOST_INMUEBLE = HOST+"inmuebles/";
-    static public String HOST_ROOT = "http://192.168.100.7:7777";
+    static public String HOST_ROOT = "http://192.168.1.2:7777/";
 
 }

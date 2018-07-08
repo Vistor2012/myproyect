@@ -44,8 +44,6 @@ public class RegistrarPosicionCasa extends FragmentActivity implements OnMapRead
         guardar = this.findViewById(R.id.guardar);
         guardar.setOnClickListener(this);
         intent = getIntent();
-
-
     }
 
 

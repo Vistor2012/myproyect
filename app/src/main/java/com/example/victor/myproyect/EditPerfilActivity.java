@@ -38,6 +38,7 @@ import cz.msebera.android.httpclient.Header;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.example.victor.myproyect.DATA.DataApp.HOST;
 
 public class EditPerfilActivity extends AppCompatActivity implements  View.OnClickListener {
     private final String CARPETA_RAIZ1="misImagenesPrueba1/";
@@ -66,7 +67,6 @@ public class EditPerfilActivity extends AppCompatActivity implements  View.OnCli
 
         email_user = this.getIntent().getExtras().getString("email");
         last_name = this.getIntent().getExtras().getString("nombre");
-        //Toast.makeText(root, last_name, Toast.LENGTH_SHORT).show();
 
         loadComponents();
 
@@ -181,13 +181,15 @@ public class EditPerfilActivity extends AppCompatActivity implements  View.OnCli
 
     @Override
     public void onClick(View v) {
+        Toast.makeText(getApplicationContext(),"entra a on click",Toast.LENGTH_SHORT).show();
+
         switch (v.getId()){
             case R.id.select_im_perf : cargarImagen1();break;
             case R.id.save :
                 try {
                     guardarInfoUser();
                 } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                    System.out.println(e.getMessage());
                 }
                 break;
             default:
@@ -200,7 +202,7 @@ public class EditPerfilActivity extends AppCompatActivity implements  View.OnCli
         AsyncHttpClient client = new AsyncHttpClient();
         File file = new File(path1);
         RequestParams params = new RequestParams();
-        params.put("img", file);
+        //params.put("img", file);
 
         params.put("name",nametext.getText());
         params.put("email",emailtext.getText());
@@ -208,11 +210,12 @@ public class EditPerfilActivity extends AppCompatActivity implements  View.OnCli
         params.put("phone",phone1.getText());
         params.put("phone2",phone2.getText());
         params.put("movil", movil.getText());
-
-        params.put("ciudad",city.getText());
+        Toast.makeText(getApplicationContext(),"entra aguardar info",Toast.LENGTH_SHORT).show();
 
         //Aqui hay que cambiar la ip
-        client.post(DataApp.HOST+"agenteVentas", params, new JsonHttpResponseHandler(){
+        String url = "http://192.168.1.2:7777/api/v1.0/" + "agenteVentas";
+        //client.setTimeout(15*1000);
+        client.post(url, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
@@ -231,6 +234,12 @@ public class EditPerfilActivity extends AppCompatActivity implements  View.OnCli
                     e.printStackTrace();
                 }
 
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Toast.makeText(EditPerfilActivity.this, throwable.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
