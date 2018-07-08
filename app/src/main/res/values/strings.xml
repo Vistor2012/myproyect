@@ -54,4 +54,5 @@
     <string name="cancelar">CANCELAR</string>
     <string name="buscar_propiedad">Buscar Propiedad</string>
     <string name="bienvenido">BIENVENIDO</string>
+    <string name="guardar_ubicacion">Guardar Ubicacion</string>
 </resources>
