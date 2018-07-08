@@ -1,5 +1,6 @@
 package com.example.victor.myproyect;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -47,9 +51,19 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.example.victor.myproyect.DATA.DataApp.HOST_INMUEBLE;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
+    private static final int RQS_OPEN = 1;
+
+    Button buttonOpen;
+
+    private RecyclerView myRecyclerView;
+    private StaggeredGridLayoutManager staggeredGridLayoutManagerVertical;
+    private MyRecyclerViewAdapter myRecyclerViewAdapter;
+
+
+
+
     private final String CARPETA_RAIZ="misImagenesPrueba/";
     private final String RUTA_IMAGEN=CARPETA_RAIZ+"misFotos";
-
     final int COD_SELECCIONA=10;
     final int COD_FOTO=20;
     private final int PICK_IMAGE_MULTIPLE =1;
@@ -74,7 +88,36 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         validaPermisos();
         irMapa();
 
+        ////////
+        buttonOpen = (Button) findViewById(R.id.opendocument);
+        buttonOpen.setOnClickListener(buttonOpenOnClickListener);
+
+        myRecyclerView = (RecyclerView)findViewById(R.id.myrecyclerview);
+        staggeredGridLayoutManagerVertical =
+                new StaggeredGridLayoutManager(
+                        2, //The number of Columns in the grid
+                        LinearLayoutManager.VERTICAL);
+        myRecyclerViewAdapter = new MyRecyclerViewAdapter(this);
+        myRecyclerView.setAdapter(myRecyclerViewAdapter);
+        myRecyclerView.setLayoutManager(staggeredGridLayoutManagerVertical);
+
     }
+//////////////
+View.OnClickListener buttonOpenOnClickListener =
+        new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                startActivityForResult(intent, RQS_OPEN);
+            }
+        };
+
+
 
     private void loadcomponents() {
         precio = (EditText)findViewById(R.id.precio);
@@ -192,6 +235,28 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     imagen.setImageBitmap(bitmap);
 
                     break;
+            }
+        }
+        //////////////
+        myRecyclerViewAdapter.clearAll();
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == RQS_OPEN) {
+                ClipData clipData = data.getClipData();
+                if(clipData == null){
+                    myRecyclerViewAdapter.add(
+                            myRecyclerViewAdapter.getItemCount(),
+                            data.getData());
+                }else{
+                    for(int i=0; i<clipData.getItemCount(); i++){
+                        ClipData.Item item = clipData.getItemAt(i);
+                        Uri uri = item.getUri();
+                        myRecyclerViewAdapter.add(
+                                myRecyclerViewAdapter.getItemCount(),
+                                uri);
+                    }
+                }
+
             }
         }
     }
