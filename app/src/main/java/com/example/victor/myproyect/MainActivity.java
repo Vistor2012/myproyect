@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         controlador1();
     }
 
+
     private void controlador1() {
         Button btn1 = (Button)this.findViewById(R.id.list);
         btn1.setOnClickListener(new View.OnClickListener() {

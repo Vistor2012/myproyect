@@ -73,7 +73,10 @@
         <activity
             android:name=".ListActivity"
             android:label="@string/title_activity_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".latiylongi_Maps"
+            android:label="@string/title_activity_latiylongi__maps"></activity>
     </application>
 
 </manifest>

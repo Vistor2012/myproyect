@@ -53,19 +53,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         listMarkers = new ArrayList<Marker>();
         loadData();
-
-        enviar = this.findViewById(R.id.registro);
-        enviar.setOnClickListener(this);
-        agregar = this.findViewById(R.id.agregar);
-        agregar.setOnClickListener(this);
-        remover = this.findViewById(R.id.cancel);
-        remover.setOnClickListener(this);
     }
 
     private void loadData() {
         AsyncHttpClient client = new AsyncHttpClient();
         //Falta URL del Servicio:----------------------
-        client.get("", null, new JsonHttpResponseHandler() {
+        String url = "http://192.168.1.7:7777/api/v1.0/" + "inmuebles";
+
+        client.get(url, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // If the response is JSONObject instead of expected JSONArray
@@ -116,48 +111,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onClick(View v) {
-
-        switch (v.getId()){
-            case R.id.agregar:
-                if(isInadd = true){
-                    isInadd = false;
-                }else{
-                    isInadd = true;
-                }
-                Toast.makeText(this,"Ya Puedes Agregar Un Marcador",Toast.LENGTH_SHORT).show();
-                msjtxt();
-                break;
-            case R.id.cancel:
-                if(listMarkers.size()>0) {
-                    Marker aux = listMarkers.get(listMarkers.size() - 1);
-                    aux.remove();
-                    listMarkers.remove(listMarkers.size() - 1);
-                }
-                Toast.makeText(this,"Deshaciendo Marcador",Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.registro:
-                RequestParams params = new RequestParams();
-                String send="";
-                for(int i=0;i < listMarkers.size();i++ ){
-                    LatLng coor = listMarkers.get(i).getPosition();
-                    send +=""+coor.latitude+","+coor.longitude+"]";
-                }
-                params.put("coor",send);
-                AsyncHttpClient client = new AsyncHttpClient();
-                //Falta URL del Servicio:----------------------
-                client.post("", params, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        msjToasSuccess();
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        msjToasFail();
-                    }
-                });
-                Toast.makeText(this,"Enviar",Toast.LENGTH_SHORT).show();
-        }
 
     }
 

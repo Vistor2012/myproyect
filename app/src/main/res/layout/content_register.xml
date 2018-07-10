@@ -18,19 +18,33 @@
         tools:showIn="@layout/activity_register">
 
 
-        <Spinner
-            android:id="@+id/cat"
-            android:layout_width="215dp"
-            android:layout_height="45dp"
+        <ImageView
+            android:id="@+id/foto"
+            android:layout_width="153dp"
+            android:layout_height="123dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@color/common_google_signin_btn_text_light_default"
-            android:entries="@array/Cat"
-            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/myrecyclerview"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/img_base"
+            tools:ignore="MissingConstraints"
+            android:contentDescription="@string/todo" />
+
+
+        <Spinner
+            android:id="@+id/tipo_operacion"
+            android:layout_width="173dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/select_Image"
             tools:ignore="MissingConstraints" />
 
         <EditText
@@ -42,16 +56,14 @@
             android:layout_marginTop="8dp"
             android:hint="@string/precio_usd"
             android:inputType="numberDecimal"
-            android:scrollbars="vertical"
             app:layout_constraintEnd_toStartOf="@+id/superficie"
-            app:layout_constraintHorizontal_bias="0.21"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cat"
+            app:layout_constraintTop_toBottomOf="@+id/tipo_operacion"
             tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/superficie"
-            android:scrollbars="vertical"
             android:layout_width="157dp"
             android:layout_height="45dp"
             android:layout_marginEnd="16dp"
@@ -59,32 +71,42 @@
             android:hint="@string/superficie_m2"
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cat"
+            app:layout_constraintTop_toBottomOf="@+id/tipo_operacion"
             tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/select_Image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:onClick="onclick"
+            android:text="@string/seleccionar_imagen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/foto" />
 
         <EditText
             android:id="@+id/description"
             android:layout_width="match_parent"
-            android:scrollbars="vertical"
-            android:layout_height="80dp"
+            android:layout_height="84dp"
             android:layout_marginTop="8dp"
             android:hint="@string/descripcion"
-            android:inputType="textMultiLine"
-            android:orientation="vertical"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/superficie" />
 
         <EditText
             android:id="@+id/servicios"
-            android:scrollbars="vertical"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="78dp"
             android:layout_marginTop="8dp"
             android:hint="@string/servicios"
-            android:inputType="textMultiLine"
-            android:orientation="vertical"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,56 +115,29 @@
         <EditText
             android:id="@+id/direccion"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="8dp"
-            android:hint="Dirección"
-            android:inputType="textMultiLine"
-            android:orientation="vertical"
-            android:scrollbars="vertical"
+            android:layout_height="78dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="1dp"
+            android:hint="direccion"
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@+id/register_data"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/servicios" />
 
+
         <Button
             android:id="@+id/register_data"
-            android:layout_width="197dp"
-            android:layout_height="57dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="30dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="116dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/btn"
             android:text="Registrar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/direccion" />
-
-        <Button
-            android:id="@+id/opendocument"
-            android:layout_width="197dp"
-            android:layout_height="56dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/btn"
-            android:text="SUBIR_FOTOS"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/myrecyclerview"
-            android:layout_width="339dp"
-            android:layout_height="165dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/opendocument"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintStart_toEndOf="@+id/ubicacion" />
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>

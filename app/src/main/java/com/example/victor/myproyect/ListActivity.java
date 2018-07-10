@@ -38,14 +38,6 @@ public class ListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -79,16 +71,16 @@ public class ListActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"esta entrando aqui",Toast.LENGTH_SHORT).show();
                         JSONObject itemJson = response.getJSONObject(i);
                         Toast.makeText(getApplicationContext(),itemJson+"",Toast.LENGTH_SHORT).show();
-                        String descripcion = itemJson.getString("descripcion");
-                        String servicios = itemJson.getString("servicios");
-                        String precio = itemJson.getString("precio");
-                        String superficie = itemJson.getString("superficie");
+                        String descripcion_p = itemJson.getString("descripcion");
+                        String servicios_p = itemJson.getString("servicios");
+                        String precio_p = itemJson.getString("precio");
+                        String superficie_p = itemJson.getString("superficie");
                         String tipo_operacion = itemJson.getString("tipo_operacion");
-                        String direccion = itemJson.getString("direccion");
+                        String direccion_p = itemJson.getString("direccion");
                         //String imdbID = itemJson.getString("_id");
                         //String images = itemJson.getString("image_casa");
 
-                        ItemList item = new ItemList(descripcion, servicios, precio, superficie, direccion, tipo_operacion);
+                        ItemList item = new ItemList(descripcion_p, servicios_p, precio_p, superficie_p, direccion_p, tipo_operacion);
                         LISTINFO.add(item);
                     }
 
@@ -96,7 +88,6 @@ public class ListActivity extends AppCompatActivity {
                     LIST.setAdapter(ADAPTER);
                     //llenar el LISTINFO desde la api
                     //LISTINFO.add(new ItemList("https://www.construyehogar.com/wp-content/uploads/2017/10/Fachada-de-casa-moderna-peque%C3%B1a.jpg", "hshnsbdhd", "dggddnd"));
-
                 }catch (JSONException e){
                     e.printStackTrace();
                 }

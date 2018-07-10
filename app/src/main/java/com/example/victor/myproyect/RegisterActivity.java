@@ -1,6 +1,6 @@
 package com.example.victor.myproyect;
 
-import android.content.ClipData;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,14 +14,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,12 +26,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.victor.myproyect.DATA.DataApp;
 import com.example.victor.myproyect.DATA.UserData;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,20 +46,11 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.example.victor.myproyect.DATA.DataApp.HOST_INMUEBLE;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
-    private static final int RQS_OPEN = 1;
-
-    Button buttonOpen;
-
-    private RecyclerView myRecyclerView;
-    private StaggeredGridLayoutManager staggeredGridLayoutManagerVertical;
-    private MyRecyclerViewAdapter myRecyclerViewAdapter;
-
 
     private final String CARPETA_RAIZ="misImagenesPrueba/";
     private final String RUTA_IMAGEN=CARPETA_RAIZ+"misFotos";
     final int COD_SELECCIONA=10;
     final int COD_FOTO=20;
-    private final int PICK_IMAGE_MULTIPLE =1;
 
     Button register_data, select_image;
     String path;
@@ -73,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     String tipo_ope;
 
-    EditText precio, descripcion, superficie, servicios, direccion, tipo_operacion;
+    EditText precio, descripcion, superficie, servicios, direccion;
 
     ImageView imagen;
     @Override
@@ -82,13 +67,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        //imagen=(ImageView)findViewById(R.id.foto);
+        imagen=(ImageView)findViewById(R.id.foto);
 
-//        loadcomponents();
+        loadcomponents();
         validaPermisos();
 
-        Spinner spinner = (Spinner) findViewById(R.id.cat);
-        final String[] t_n = {"", "venta","alquiler","anticretico"};
+        Spinner spinner = (Spinner) findViewById(R.id.tipo_operacion);
+        final String[] t_n = {"SELECCIONE", "venta", "alquiler", "anticretico"};
+        spinner.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, t_n));
+        String text = spinner.getSelectedItem().toString();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -103,49 +90,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
-        ////////
-        buttonOpen = (Button) findViewById(R.id.opendocument);
-        buttonOpen.setOnClickListener(buttonOpenOnClickListener);
-
-        myRecyclerView = (RecyclerView)findViewById(R.id.myrecyclerview);
-        staggeredGridLayoutManagerVertical =
-                new StaggeredGridLayoutManager(
-                        2, //The number of Columns in the grid
-                        LinearLayoutManager.VERTICAL);
-        myRecyclerViewAdapter = new MyRecyclerViewAdapter(this);
-        myRecyclerView.setAdapter(myRecyclerViewAdapter);
-        myRecyclerView.setLayoutManager(staggeredGridLayoutManagerVertical);
-
     }
-//////////////
-View.OnClickListener buttonOpenOnClickListener =
-        new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                startActivityForResult(intent, RQS_OPEN);
-            }
-        };
-
-
-
-    private void loadcomponents() {
-        precio = (EditText)findViewById(R.id.precio);
-        descripcion = (EditText)findViewById(R.id.description);
-        superficie = (EditText)findViewById(R.id.superficie);
-        servicios = (EditText)findViewById(R.id.servicios);
-        direccion =  (EditText)findViewById(R.id.direccion);
-        //select_image = this.findViewById(R.id.select_Image);
-        register_data = this.findViewById(R.id.register_data);
-        register_data.setOnClickListener(this);
-       // select_image.setOnClickListener(this);
-    }
-
     private boolean validaPermisos() {
 
         if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
@@ -161,6 +106,18 @@ View.OnClickListener buttonOpenOnClickListener =
 
 
         return false;
+    }
+
+    private void loadcomponents() {
+        precio = (EditText)findViewById(R.id.precio);
+        descripcion = (EditText)findViewById(R.id.description);
+        superficie = (EditText)findViewById(R.id.superficie);
+        servicios = (EditText)findViewById(R.id.servicios);
+        direccion =  (EditText)findViewById(R.id.direccion);
+        select_image = this.findViewById(R.id.select_Image);
+        register_data = this.findViewById(R.id.register_data);
+        register_data.setOnClickListener(this);
+        select_image.setOnClickListener(this);
     }
 
     public void onclick(View view) {
@@ -256,28 +213,6 @@ View.OnClickListener buttonOpenOnClickListener =
                     break;
             }
         }
-        //////////////
-        myRecyclerViewAdapter.clearAll();
-
-        if (resultCode == RESULT_OK) {
-            if (requestCode == RQS_OPEN) {
-                ClipData clipData = data.getClipData();
-                if(clipData == null){
-                    myRecyclerViewAdapter.add(
-                            myRecyclerViewAdapter.getItemCount(),
-                            data.getData());
-                }else{
-                    for(int i=0; i<clipData.getItemCount(); i++){
-                        ClipData.Item item = clipData.getItemAt(i);
-                        Uri uri = item.getUri();
-                        myRecyclerViewAdapter.add(
-                                myRecyclerViewAdapter.getItemCount(),
-                                uri);
-                    }
-                }
-
-            }
-        }
     }
 
 
@@ -287,7 +222,9 @@ View.OnClickListener buttonOpenOnClickListener =
 
         switch (v.getId()){
             //case R.id.select_Image : cargarImagen();break;
-            case R.id.register_data :
+            case R.id.select_Image: cargarImagen();break;
+            case R.id.register_data:
+                Toast.makeText(this, "Guardando", Toast.LENGTH_SHORT).show();
                 try {
                     guardarInfoUser();
                 } catch (FileNotFoundException e) {
@@ -324,12 +261,10 @@ View.OnClickListener buttonOpenOnClickListener =
                 try {
                     String msn = response.getString("msn");
                     String id = response.getString("id");
-                    Toast.makeText(getApplicationContext(),msn+"",Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(),id+"",Toast.LENGTH_SHORT).show();
                     UserData.IDCasa = id;
                     if (msn != null) {
                         Toast.makeText(root, msn, Toast.LENGTH_SHORT).show();
-                        Intent registraPosicion = new Intent(root, RegistrarPosicionCasa.class);
+                        Intent registraPosicion = new Intent(root, latiylongi_Maps.class);
                         registraPosicion.putExtra("id",id);
                         root.startActivity(registraPosicion);
                     } else {
@@ -338,6 +273,11 @@ View.OnClickListener buttonOpenOnClickListener =
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 
             }
 

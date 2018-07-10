@@ -58,4 +58,5 @@
     <string name="seleccionar_fotos">Seleccionar Fotos</string>
     <string name="tomar_foto">Tomar Foto</string>
     <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_latiylongi__maps">Map</string>
 </resources>
