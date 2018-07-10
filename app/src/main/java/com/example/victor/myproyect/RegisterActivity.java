@@ -82,9 +82,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        imagen=(ImageView)findViewById(R.id.foto);
+        //imagen=(ImageView)findViewById(R.id.foto);
 
-        loadcomponents();
+//        loadcomponents();
         validaPermisos();
 
         Spinner spinner = (Spinner) findViewById(R.id.cat);
@@ -140,11 +140,10 @@ View.OnClickListener buttonOpenOnClickListener =
         superficie = (EditText)findViewById(R.id.superficie);
         servicios = (EditText)findViewById(R.id.servicios);
         direccion =  (EditText)findViewById(R.id.direccion);
-        //tipo_operacion = (EditText)findViewById(R.id.cat);
-        select_image = this.findViewById(R.id.select_Image);
+        //select_image = this.findViewById(R.id.select_Image);
         register_data = this.findViewById(R.id.register_data);
         register_data.setOnClickListener(this);
-        select_image.setOnClickListener(this);
+       // select_image.setOnClickListener(this);
     }
 
     private boolean validaPermisos() {
@@ -287,7 +286,7 @@ View.OnClickListener buttonOpenOnClickListener =
         Toast.makeText(getApplicationContext(),"entra a on click",Toast.LENGTH_SHORT).show();
 
         switch (v.getId()){
-            case R.id.select_Image : cargarImagen();break;
+            //case R.id.select_Image : cargarImagen();break;
             case R.id.register_data :
                 try {
                     guardarInfoUser();
