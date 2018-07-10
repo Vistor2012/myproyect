@@ -22,9 +22,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tipo_operacion"
+                android:layout_width="190dp"
+                android:layout_height="25dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/direccion_p" />
+
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/phone_call"
@@ -90,7 +106,7 @@
                 android:layout_height="55dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="@string/_0"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -127,17 +143,15 @@
                 android:id="@+id/direccion_p"
                 android:layout_width="190dp"
                 android:layout_height="25dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="@string/_0"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/superficie_p"
-                app:layout_constraintVertical_bias="0.08" />
+                app:layout_constraintTop_toBottomOf="@+id/superficie_p" />
+
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>

@@ -11,14 +11,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.victor.myproyect.ListDataSource.CustomAdapter;
+import com.example.victor.myproyect.ListDataSource.ItemList;
 import com.example.victor.myproyect.ListDataSource.OnLoadImage;
 import com.example.victor.myproyect.ListDataSource.TaskImg;
+
+import java.util.ArrayList;
 
 public class LoginResult extends AppCompatActivity implements OnLoadImage {
     private String portada, email, nombre,city,phone1,phone2,movil;
     private Context root;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         root = this;
@@ -57,9 +64,9 @@ public class LoginResult extends AppCompatActivity implements OnLoadImage {
         Button btn = (Button)this.findViewById(R.id.entrar);
         nametext.setText(nombre);
         emailtext.setText(email);
-        /*TaskImg loadimg = new TaskImg();
+        TaskImg loadimg = new TaskImg();
         loadimg.execute(portada);
-        loadimg.setLoadImage(img,this);*/
+        loadimg.setLoadImage(img,this);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,4 +81,6 @@ public class LoginResult extends AppCompatActivity implements OnLoadImage {
     public void setLoadImage(ImageView container, Bitmap img) {
         container.setImageBitmap(img);
     }
+
+
 }

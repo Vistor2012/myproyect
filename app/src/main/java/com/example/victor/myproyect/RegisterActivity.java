@@ -61,8 +61,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private MyRecyclerViewAdapter myRecyclerViewAdapter;
 
 
-
-
     private final String CARPETA_RAIZ="misImagenesPrueba/";
     private final String RUTA_IMAGEN=CARPETA_RAIZ+"misFotos";
     final int COD_SELECCIONA=10;
@@ -73,9 +71,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     String path;
     Context root;
 
-    EditText precio, descripcion, superficie, servicios, direccion;
+    String tipo_ope;
 
-    Spinner categor;
+    EditText precio, descripcion, superficie, servicios, direccion, tipo_operacion;
+
     ImageView imagen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +87,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         loadcomponents();
         validaPermisos();
 
+        Spinner spinner = (Spinner) findViewById(R.id.cat);
+        final String[] t_n = {"", "venta","alquiler","anticretico"};
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("tipo de operacion");
+                tipo_ope = t_n[position];
+                System.out.println("ver la operacion");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         ////////
         buttonOpen = (Button) findViewById(R.id.opendocument);
@@ -126,6 +140,7 @@ View.OnClickListener buttonOpenOnClickListener =
         superficie = (EditText)findViewById(R.id.superficie);
         servicios = (EditText)findViewById(R.id.servicios);
         direccion =  (EditText)findViewById(R.id.direccion);
+        //tipo_operacion = (EditText)findViewById(R.id.cat);
         select_image = this.findViewById(R.id.select_Image);
         register_data = this.findViewById(R.id.register_data);
         register_data.setOnClickListener(this);
@@ -149,13 +164,12 @@ View.OnClickListener buttonOpenOnClickListener =
         return false;
     }
 
-
     public void onclick(View view) {
         cargarImagen();
     }
 
 
-    private void cargarImagen() {
+   private void cargarImagen() {
 
         final CharSequence[] opciones={"Tomar Foto","Cargar Imagen","Cancelar"};
         final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(RegisterActivity.this);
@@ -267,6 +281,7 @@ View.OnClickListener buttonOpenOnClickListener =
         }
     }
 
+
     @Override
     public void onClick(View v) {
         Toast.makeText(getApplicationContext(),"entra a on click",Toast.LENGTH_SHORT).show();
@@ -294,30 +309,15 @@ View.OnClickListener buttonOpenOnClickListener =
         //params.put("img", file);
 
         params.put("precio", precio.getText());
+        params.put("tipo_operacion", tipo_ope);
         params.put("descripcion",descripcion.getText());
         params.put("superficie",superficie.getText());
         params.put("servicios",servicios.getText());
         params.put("direccion", direccion.getText());
         Toast.makeText(getApplicationContext(),"entra aguardar info",Toast.LENGTH_SHORT).show();
 
-        //hay q revisar todo del spiner
-        categor = (Spinner)findViewById(R.id.cat);
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.Cat,android.R.layout.simple_spinner_item);
-        categor.setAdapter(adapter);
-        categor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         //Aqui hay que cambiar la ip
-        String url = "http://192.168.1.8:7777/api/v1.0/" + "inmuebles";
+        String url = "http://192.168.1.7:7777/api/v1.0/" + "inmuebles";
 
         client.post(url, params, new JsonHttpResponseHandler(){
             @Override
@@ -325,7 +325,8 @@ View.OnClickListener buttonOpenOnClickListener =
                 try {
                     String msn = response.getString("msn");
                     String id = response.getString("id");
-
+                    Toast.makeText(getApplicationContext(),msn+"",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),id+"",Toast.LENGTH_SHORT).show();
                     UserData.IDCasa = id;
                     if (msn != null) {
                         Toast.makeText(root, msn, Toast.LENGTH_SHORT).show();
