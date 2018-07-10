@@ -48,6 +48,8 @@
             tools:ignore="MissingConstraints" />
 
         <EditText
+            android:textColor="@android:color/white"
+            android:background="@color/common_google_signin_btn_text_light_default"
             android:id="@+id/precio"
             android:layout_width="157dp"
             android:layout_height="50dp"
@@ -63,6 +65,8 @@
             tools:ignore="MissingConstraints" />
 
         <EditText
+            android:textColor="@android:color/white"
+            android:background="@color/common_google_signin_btn_text_light_default"
             android:id="@+id/superficie"
             android:layout_width="157dp"
             android:layout_height="45dp"
@@ -89,6 +93,8 @@
             app:layout_constraintTop_toBottomOf="@+id/foto" />
 
         <EditText
+            android:textColor="@android:color/white"
+            android:background="@color/common_google_signin_btn_text_light_default"
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="84dp"
@@ -101,6 +107,8 @@
             app:layout_constraintTop_toBottomOf="@+id/superficie" />
 
         <EditText
+            android:textColor="@android:color/white"
+            android:background="@color/common_google_signin_btn_text_light_default"
             android:id="@+id/servicios"
             android:layout_width="match_parent"
             android:layout_height="78dp"
@@ -113,6 +121,8 @@
             app:layout_constraintTop_toBottomOf="@+id/description" />
 
         <EditText
+            android:textColor="@android:color/white"
+            android:background="@color/common_google_signin_btn_text_light_default"
             android:id="@+id/direccion"
             android:layout_width="match_parent"
             android:layout_height="78dp"
