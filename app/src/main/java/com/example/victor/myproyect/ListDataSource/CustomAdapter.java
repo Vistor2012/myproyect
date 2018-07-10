@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.victor.myproyect.R;
 
@@ -26,6 +27,7 @@ public class CustomAdapter extends BaseAdapter{
     public CustomAdapter(Context contex, ArrayList<ItemList>list){
         this.CONTEXT = contex;
         this.LIST = list;
+
     }
 
     @Override
@@ -36,7 +38,6 @@ public class CustomAdapter extends BaseAdapter{
 
     @Override
     public Object getItem(int position) {
-
         return this.LIST.get(position);
     }
 
@@ -48,20 +49,24 @@ public class CustomAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         if (convertView == null){
             LayoutInflater inflate = (LayoutInflater) this.CONTEXT.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflate.inflate(R.layout.content_detaills , null);
+
         }
         TextView detalles = (TextView)convertView.findViewById(R.id.details_house);
         TextView servicios = (TextView)convertView.findViewById(R.id.servicios_p);
         TextView precio = (TextView)convertView.findViewById(R.id.precio_p);
         TextView superficie = (TextView)convertView.findViewById(R.id.superficie_p);
+        TextView tipo_operacion = (TextView)convertView.findViewById(R.id.tipo_operacion);
         TextView direccion = (TextView)convertView.findViewById(R.id.direccion_p);
 
         detalles.setText(this.LIST.get(position).getDetalles_casa());
         servicios.setText(this.LIST.get(position).getServicios_p());
         precio.setText(this.LIST.get(position).getPrecio_p());
         superficie.setText(this.LIST.get(position).getSuperficie_p());
+        tipo_operacion.setText(this.LIST.get(position).getTipo_operacion());
         direccion.setText(this.LIST.get(position).getDireccion_p());
 
         ImageView img = (ImageView)convertView.findViewById(R.id.image_house);

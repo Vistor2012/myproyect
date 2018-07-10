@@ -5,15 +5,18 @@ public class ItemList {
     private String detalles_casa;
     private String servicios_p;
     private String precio_p;
+    private String tipo_operacion;
     private String superficie_p;
     private String direccion_p;
     private String idimdb;
-    public ItemList (String image_casa, String detalles_casa, String servicios_p, String precio_p, String superficie_p, String direccion_p, String idimdb) {
+
+    public ItemList(String detalles_casa, String servicios_p, String precio_p, String superficie_p, String tipo_operacion, String direccion_p) {
         this.image_casa = image_casa;
         this.detalles_casa = detalles_casa;
         this.servicios_p = servicios_p;
         this.precio_p = precio_p;
         this.superficie_p = superficie_p;
+        this.tipo_operacion = tipo_operacion;
         this.direccion_p = direccion_p;
         this.idimdb = idimdb;
     }
@@ -30,6 +33,7 @@ public class ItemList {
     public String getSuperficie_p() {
         return this.superficie_p;
     }
+    public String getTipo_operacion(){ return this.tipo_operacion; }
     public String getDireccion_p() { return this.direccion_p; }
     public String getIdimdb () {
         return this.idimdb;

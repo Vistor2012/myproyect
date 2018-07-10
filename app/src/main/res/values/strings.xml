@@ -55,4 +55,7 @@
     <string name="buscar_propiedad">Buscar Propiedad</string>
     <string name="bienvenido">BIENVENIDO</string>
     <string name="guardar_ubicacion">Guardar Ubicacion</string>
+    <string name="seleccionar_fotos">Seleccionar Fotos</string>
+    <string name="tomar_foto">Tomar Foto</string>
+    <string name="title_activity_list">ListActivity</string>
 </resources>

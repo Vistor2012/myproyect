@@ -11,19 +11,22 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
-public class DetaillsActivity extends AppCompatActivity {
+public class DetaillsActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detaills);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.dialog_email);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        Button btn1 = (Button)this.findViewById(R.id.dialog_email);
+        btn1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent i = new Intent(DetaillsActivity.this, MailActivity.class);
-                startActivity(i);
+            public void onClick(View v) {
+                Intent reg = new Intent(DetaillsActivity.this, MailActivity.class);
+                startActivity(reg);
             }
         });
 
@@ -37,6 +40,12 @@ public class DetaillsActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(getApplicationContext(),"entra a email",Toast.LENGTH_SHORT).show();
 
     }
 }

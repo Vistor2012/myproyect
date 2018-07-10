@@ -56,11 +56,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void controlador1() {
-        Button btn1 = (Button)this.findViewById(R.id.gallery_p);
+        Button btn1 = (Button)this.findViewById(R.id.list);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent reg = new Intent(getApplicationContext(),GalleryActivity.class);
+                Intent reg = new Intent(getApplicationContext(),ListActivity.class);
                 startActivity(reg);
             }
         });
