@@ -53,7 +53,7 @@ public class ListActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         // Toast.makeText(getApplicationContext(),"esta entrando aqui",Toast.LENGTH_SHORT).show();
         //aqui donde tiene q cargar la informacion
-        String url = "http://192.168.1.7:7777/api/v1.0/inmuebles";
+        String url = "http://192.168.43.142:7777/api/v1.0/inmuebles";
         //String descripcion="";
         client.get(url, new JsonHttpResponseHandler(){
             @Override
@@ -94,5 +94,4 @@ public class ListActivity extends AppCompatActivity {
             }
         });
     }
-
 }

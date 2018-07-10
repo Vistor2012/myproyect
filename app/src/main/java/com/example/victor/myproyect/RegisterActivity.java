@@ -253,7 +253,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Toast.makeText(getApplicationContext(),"entra aguardar info",Toast.LENGTH_SHORT).show();
 
         //Aqui hay que cambiar la ip
-        String url = "http://192.168.1.7:7777/api/v1.0/" + "inmuebles";
+        String url = "http://192.168.43.142:7777/api/v1.0/" + "inmuebles";
 
         client.post(url, params, new JsonHttpResponseHandler(){
             @Override

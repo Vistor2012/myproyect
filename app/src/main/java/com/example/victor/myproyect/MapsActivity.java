@@ -58,7 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void loadData() {
         AsyncHttpClient client = new AsyncHttpClient();
         //Falta URL del Servicio:----------------------
-        String url = "http://192.168.1.7:7777/api/v1.0/" + "inmuebles";
+        String url = "http://192.168.43.142:7777/api/v1.0/" + "inmuebles";
 
         client.get(url, null, new JsonHttpResponseHandler() {
             @Override

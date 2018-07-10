@@ -49,7 +49,7 @@ public class latiylongi_Maps extends FragmentActivity implements OnMapReadyCallb
                     RequestParams params = new RequestParams();
                     params.put("lat",marker.getPosition().latitude);
                     params.put("lon",marker.getPosition().longitude);
-                    String url = "http://192.168.1.7:7777/api/v1.0/" + "inmuebles";
+                    String url = "http://192.168.43.142:7777/api/v1.0/" + "inmuebles";
                     client.patch(url, params,new JsonHttpResponseHandler());
                     Toast.makeText(root,"exitoso",Toast.LENGTH_LONG).show();
                 }
