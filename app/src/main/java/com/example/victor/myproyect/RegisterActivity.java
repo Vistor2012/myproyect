@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.victor.myproyect.DATA.DataApp;
 import com.example.victor.myproyect.DATA.UserData;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -79,9 +81,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("tipo de operacion");
+                //System.out.println("tipo de operacion");
                 tipo_ope = t_n[position];
-                System.out.println("ver la operacion");
+                //System.out.println("ver la operacion");
             }
 
             @Override
@@ -125,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-   private void cargarImagen() {
+    private void cargarImagen() {
 
         final CharSequence[] opciones={"Tomar Foto","Cargar Imagen","Cancelar"};
         final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(RegisterActivity.this);
@@ -152,29 +154,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void tomarFotografia() {
-        File fileImagen=new File(Environment.getExternalStorageDirectory(),RUTA_IMAGEN);
-        boolean isCreada=fileImagen.exists();
-        String nombreImagen="";
-        if(isCreada==false){
-            isCreada=fileImagen.mkdirs();
+
+        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File file = createFile();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri fileuri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);
+            camera.putExtra(MediaStore.EXTRA_OUTPUT, fileuri);
+        } else {
+            camera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         }
-
-        if(isCreada==true){
-            nombreImagen=(System.currentTimeMillis()/1000)+".jpg";
-        }
-
-
-        path=Environment.getExternalStorageDirectory()+ File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
-
-        File imagen=new File(path);
-
-        Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
-
-        startActivityForResult(intent,COD_FOTO);
+        startActivityForResult(camera, COD_FOTO);
     }
+    private File createFile() {
+        //Logica de creado
+        File file = new File(Environment.getExternalStorageDirectory(), RUTA_IMAGEN);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        //generar el nombre
+        String name = "";
+        if (file.exists()) {
+            name = "IMG_" + System.currentTimeMillis() / 1000 + ".jpg";
+        }
+        path = file.getAbsolutePath() + File.separator + name;
+        File fileimg = new File(path);
+        return fileimg;
+    }
+    //Aqui recuoermasos la url a partir de la imagen
     public static String getRealPathFromURI(Context context, Uri contentURI) {
         String result = null;
         Cursor cursor = context.getContentResolver().query(contentURI,
@@ -187,6 +193,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             cursor.close();
         }
         return result;
+
     }
 
     @Override
@@ -198,33 +205,31 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Uri Mipath=data.getData();
                     imagen.setImageURI(Mipath);
                     path = getRealPathFromURI(this,Mipath);
+                    Toast.makeText(root, path, Toast.LENGTH_SHORT).show();
                     break;
                 case COD_FOTO:
-                    MediaScannerConnection.scanFile(this, new String[]{path}, null, new MediaScannerConnection.OnScanCompletedListener() {
-                        @Override
-                        public void onScanCompleted(String path, Uri uri) {
-                            Log.i("ruta de almacenamiento","Path: "+path);
-
-                        }
-                    });
-                    Bitmap bitmap = BitmapFactory.decodeFile(path);
-                    imagen.setImageBitmap(bitmap);
-
-                    break;
+                    loadImageCamera();
             }
         }
     }
+    private void loadImageCamera() {
+        //File file = new File(imageFilePath);
+        Bitmap img = BitmapFactory.decodeFile(path);
+        if(img != null) {
+            imagen.setImageBitmap(img);
 
+        }
+    }
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(getApplicationContext(),"entra a on click",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"entra a on click",Toast.LENGTH_SHORT).show();
 
         switch (v.getId()){
             //case R.id.select_Image : cargarImagen();break;
             case R.id.select_Image: cargarImagen();break;
             case R.id.register_data:
-                Toast.makeText(this, "Guardando", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Guardando", Toast.LENGTH_SHORT).show();
                 try {
                     guardarInfoUser();
                 } catch (FileNotFoundException e) {
@@ -238,11 +243,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void guardarInfoUser() throws FileNotFoundException{
-        Toast.makeText(this, "Guardando", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Guardando", Toast.LENGTH_SHORT).show();
         AsyncHttpClient client = new AsyncHttpClient();
+        if (path == null || path == ""){
+            Toast.makeText(root, "Debe sel una imagen", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         File file = new File(path);
         RequestParams params = new RequestParams();
-        //params.put("img", file);
+        params.put("img", file);
 
         params.put("precio", precio.getText());
         params.put("tipo_operacion", tipo_ope);
@@ -250,12 +260,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         params.put("superficie",superficie.getText());
         params.put("servicios",servicios.getText());
         params.put("direccion", direccion.getText());
-        Toast.makeText(getApplicationContext(),"entra aguardar info",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"entra aguardar info",Toast.LENGTH_SHORT).show();
 
         //Aqui hay que cambiar la ip
-        String url = "http://192.168.1.3:7777/api/v1.0/" + "inmuebles";
 
-        client.post(url, params, new JsonHttpResponseHandler(){
+        client.post(DataApp.HOST_INMUEBLE, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {

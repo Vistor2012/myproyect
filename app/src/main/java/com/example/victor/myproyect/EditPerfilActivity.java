@@ -39,6 +39,7 @@ import cz.msebera.android.httpclient.Header;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.example.victor.myproyect.DATA.DataApp.HOST;
+import static com.example.victor.myproyect.DATA.DataApp.HOST_ROOT;
 
 public class EditPerfilActivity extends AppCompatActivity implements  View.OnClickListener {
     private final String CARPETA_RAIZ1="misImagenesPrueba1/";
@@ -210,12 +211,12 @@ public class EditPerfilActivity extends AppCompatActivity implements  View.OnCli
         params.put("phone",phone1.getText());
         params.put("phone2",phone2.getText());
         params.put("movil", movil.getText());
-        Toast.makeText(getApplicationContext(),"entra aguardar info",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"entra aguardar info",Toast.LENGTH_SHORT).show();
 
         //Aqui hay que cambiar la ip
-        String url = "http://192.168.1.3:7777/api/v1.0/" + "agenteVentas";
-        //client.setTimeout(15*1000);
-        client.post(url, params, new JsonHttpResponseHandler(){
+        //String url = "http://192.168.1.3:7777/api/v1.0/" + "agenteVentas";
+
+        client.post(DataApp.HOST_ROOT, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {

@@ -4,24 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+
 import android.widget.ImageView;
-import android.widget.ListView;
+
 import android.widget.TextView;
 
-import com.example.victor.myproyect.ListDataSource.CustomAdapter;
-import com.example.victor.myproyect.ListDataSource.ItemList;
+
 import com.example.victor.myproyect.ListDataSource.OnLoadImage;
 import com.example.victor.myproyect.ListDataSource.TaskImg;
 
-import java.util.ArrayList;
-
 public class LoginResult extends AppCompatActivity implements OnLoadImage {
+
     private String portada, email, nombre,city,phone1,phone2,movil;
     private Context root;
 
@@ -36,7 +32,11 @@ public class LoginResult extends AppCompatActivity implements OnLoadImage {
         phone1 = this.getIntent().getExtras().getString("phone11");
         phone2 = this.getIntent().getExtras().getString("phone22");
         movil = this.getIntent().getExtras().getString("movil1");
-        portada = this.getIntent().getExtras().getString("portada");
+        portada = "";
+        if (this.getIntent().getExtras().getString("portada") != null){
+            portada = this.getIntent().getExtras().getString("portada");
+        }
+
         email = this.getIntent().getExtras().getString("email");
         nombre = this.getIntent().getExtras().getString("nombre");
 

@@ -69,8 +69,13 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 Intent loginr = new Intent(this, LoginResult.class);
                 //Intent loginr = new Intent(this, EditPerfilActivity.class);
                 Uri photo = result.getSignInAccount().getPhotoUrl();
-                String completeurl = "https://lh3.googleusercontent.com" + photo.getPath();
-                loginr.putExtra("portada", completeurl);
+                if (photo!= null) {
+                    String completeurl = "https://lh3.googleusercontent.com" + photo.getPath();
+                    Toast.makeText(this, completeurl, Toast.LENGTH_SHORT).show();
+                    loginr.putExtra("portada", completeurl);
+                }
+
+
                 loginr.putExtra("email", result.getSignInAccount().getEmail());
                 loginr.putExtra("nombre", result.getSignInAccount().getDisplayName());
                 startActivity(loginr);

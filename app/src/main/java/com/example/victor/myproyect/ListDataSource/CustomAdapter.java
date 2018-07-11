@@ -3,28 +3,22 @@ package com.example.victor.myproyect.ListDataSource;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.victor.myproyect.R;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter implements OnLoadImage{
 
     private Context CONTEXT;
     private ArrayList<ItemList>LIST;
-    public CustomAdapter(Context contex, ArrayList<ItemList>list){
+    public CustomAdapter(Context contex, ArrayList<ItemList> list){
         this.CONTEXT = contex;
         this.LIST = list;
 
