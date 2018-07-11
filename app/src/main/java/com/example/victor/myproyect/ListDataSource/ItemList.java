@@ -10,7 +10,7 @@ public class ItemList {
     private String direccion_p;
     private String idimdb;
 
-    public ItemList(String detalles_casa, String servicios_p, String precio_p, String superficie_p, String tipo_operacion, String direccion_p) {
+    public ItemList(String image_casa, String detalles_casa, String servicios_p, String precio_p, String superficie_p, String tipo_operacion, String direccion_p) {
         this.image_casa = image_casa;
         this.detalles_casa = detalles_casa;
         this.servicios_p = servicios_p;

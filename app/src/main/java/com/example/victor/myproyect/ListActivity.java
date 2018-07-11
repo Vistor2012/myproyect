@@ -7,7 +7,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -42,18 +45,44 @@ public class ListActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         root = this;
-
         LISTINFO = new ArrayList<ItemList>();
-        LIST =(ListView) this.findViewById(R.id.list_house);
 
-        loadInitialRestData();
+
+        //loadInitialRestData();
+        loadcomponents();
     }
 
-    private void loadInitialRestData() {
+    private void loadcomponents() {
+        LIST =(ListView) this.findViewById(R.id.list_house);
+        EditText search = (EditText)this.findViewById(R.id.search_house);
+        //eventos
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String str = s.toString();
+                loadInitialRestData(str);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        //LISTINFO.add(new ItemList("https://www.construyehogar.com/wp-content/uploads/2017/10/Fachada-de-casa-moderna-peque%C3%B1a.jpg", "hshnsbdhd", "dggddnd", "jddnd", "gdhd", "venta", "bfjj"));
+        //ADAPTER = new CustomAdapter(this,LISTINFO);
+        //LIST.setAdapter(ADAPTER);
+    }
+
+   private void loadInitialRestData(String keystr) {
         AsyncHttpClient client = new AsyncHttpClient();
         // Toast.makeText(getApplicationContext(),"esta entrando aqui",Toast.LENGTH_SHORT).show();
-        //aqui donde tiene q cargar la informacion
-        String url = "http://192.168.43.142:7777/api/v1.0/inmuebles";
+        //aqui donde tiene q cargar la infarmacion
+        String url = "http://192.168.1.3:7777/api/v1.0/" +keystr+ "inmuebles";
         //String descripcion="";
         client.get(url, new JsonHttpResponseHandler(){
             @Override
@@ -80,14 +109,13 @@ public class ListActivity extends AppCompatActivity {
                         //String imdbID = itemJson.getString("_id");
                         //String images = itemJson.getString("image_casa");
 
-                        ItemList item = new ItemList(descripcion_p, servicios_p, precio_p, superficie_p, direccion_p, tipo_operacion);
+                        ItemList item = new ItemList("https://www.construyehogar.com/wp-content/uploads/2017/10/Fachada-de-casa-moderna-peque%C3%B1a.jpg",descripcion_p, servicios_p, precio_p, superficie_p, tipo_operacion, direccion_p);
                         LISTINFO.add(item);
                     }
 
                     ADAPTER = new CustomAdapter(root, LISTINFO);
                     LIST.setAdapter(ADAPTER);
-                    //llenar el LISTINFO desde la api
-                    //LISTINFO.add(new ItemList("https://www.construyehogar.com/wp-content/uploads/2017/10/Fachada-de-casa-moderna-peque%C3%B1a.jpg", "hshnsbdhd", "dggddnd"));
+
                 }catch (JSONException e){
                     e.printStackTrace();
                 }

@@ -67,10 +67,6 @@
             android:label="@string/title_activity_edit_perfil"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".DetaillsActivity"
-            android:label="@string/title_activity_detaills"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ListActivity"
             android:label="@string/title_activity_list"
             android:theme="@style/AppTheme.NoActionBar" />

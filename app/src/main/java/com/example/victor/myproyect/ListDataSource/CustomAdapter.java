@@ -20,7 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class CustomAdapter extends BaseAdapter{
+public class CustomAdapter extends BaseAdapter implements OnLoadImage{
 
     private Context CONTEXT;
     private ArrayList<ItemList>LIST;
@@ -52,7 +52,7 @@ public class CustomAdapter extends BaseAdapter{
 
         if (convertView == null){
             LayoutInflater inflate = (LayoutInflater) this.CONTEXT.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflate.inflate(R.layout.content_detaills , null);
+            convertView = inflate.inflate(R.layout.item_list, null);
 
         }
         TextView detalles = (TextView)convertView.findViewById(R.id.details_house);
@@ -69,27 +69,18 @@ public class CustomAdapter extends BaseAdapter{
         tipo_operacion.setText(this.LIST.get(position).getTipo_operacion());
         direccion.setText(this.LIST.get(position).getDireccion_p());
 
-        ImageView img = (ImageView)convertView.findViewById(R.id.image_house);
-
-        //sin hilo la imagen
-        try {
-            URL url = new URL(this.LIST.get(position).getImage_casa());
-            InputStream stream = url.openConnection().getInputStream();
-            Bitmap imageBitmap = BitmapFactory.decodeStream(stream);
-            img.setImageBitmap(imageBitmap);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         //revisar con Hilo la imagen
 
-        /*ImageView img = (ImageView)convertView.findViewById(R.id.image_house);
+        ImageView img = (ImageView)convertView.findViewById(R.id.image_house);
         TaskImg hilo = new TaskImg();
         hilo.setLoadImage(img, this);
-        hilo.execute(this.LIST.get(position).getImage_casa());*/
+        hilo.execute(this.LIST.get(position).getImage_casa());
         //
         return convertView;
+    }
+
+    @Override
+    public void setLoadImage(ImageView container, Bitmap img) {
+        container.setImageBitmap(img);
     }
 }

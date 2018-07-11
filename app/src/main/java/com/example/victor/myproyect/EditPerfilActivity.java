@@ -213,7 +213,7 @@ public class EditPerfilActivity extends AppCompatActivity implements  View.OnCli
         Toast.makeText(getApplicationContext(),"entra aguardar info",Toast.LENGTH_SHORT).show();
 
         //Aqui hay que cambiar la ip
-        String url = "http://192.168.43.142:7777/api/v1.0/" + "agenteVentas";
+        String url = "http://192.168.1.3:7777/api/v1.0/" + "agenteVentas";
         //client.setTimeout(15*1000);
         client.post(url, params, new JsonHttpResponseHandler(){
             @Override

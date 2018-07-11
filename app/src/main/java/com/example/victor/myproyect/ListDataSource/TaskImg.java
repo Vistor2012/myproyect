@@ -1,6 +1,6 @@
 package com.example.victor.myproyect.ListDataSource;
 
-import android.annotation.SuppressLint;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -14,8 +14,7 @@ import java.net.URL;
 public class TaskImg extends AsyncTask<String, String, Bitmap> {
 
     private OnLoadImage IMG;
-    @SuppressLint("StaticFieldLeak")
-    protected ImageView imgC;
+    private ImageView imgC;
     public void setLoadImage (ImageView container, OnLoadImage img) {
         IMG = img;
         imgC = container;
@@ -27,14 +26,16 @@ public class TaskImg extends AsyncTask<String, String, Bitmap> {
             InputStream stream = url.openConnection().getInputStream();
             return BitmapFactory.decodeStream(stream);
             //img.setImageBitmap(imageBitmap);
-        }  catch (IOException e) {
+        }catch (MalformedURLException e){
             e.printStackTrace();
-            return null;
+        }catch (IOException e) {
+            e.printStackTrace();
         }
-
+        return null;
     }
 
     protected void onPostExecute(Bitmap result) {
+
         IMG.setLoadImage(imgC, result);
     }
 }
